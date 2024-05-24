@@ -1,0 +1,37 @@
+{
+  "name": "tembici-bikes-front",
+  "author": "Maycon Oliveira & Bruno J Postali",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
+    "axios": "^1.6.8",
+    "next": "12.2.4",
+    "prettier": "3.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-google-maps": "^9.4.5",
+    "react-reveal": "^1.2.2",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.13",
+    "eslint": "8.21.0",
+    "eslint-config-next": "12.2.4",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.2",
+    "typescript": "^5"
+  }
+}
