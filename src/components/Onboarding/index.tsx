@@ -4,7 +4,9 @@ import { StepBar } from './components/StepBar'
 import { HeadingBar } from './components/HeadingBar'
 import { GetGeolocationResponse } from '../../../types/Onboarding/geolocation'
 import { OnboardingMap } from '../OnboardingMap'
+import GetBikeStations from '../../../domain/useCases/GetBikeStations'
 const Reveal = require('react-reveal/Reveal')
+import bikeStations from '../../../mock/bikestations.json';
 
 export const Onboarding = () => {
   const [step, setStep] = useState(1)
@@ -19,13 +21,36 @@ export const Onboarding = () => {
     console.log('Unable to retrieve your location')
   }
 
+  function getDatabase() {
+    try {
+      const databaseId = "asd";
+      const filters = {
+        plan: 'Completo',
+        // Outros filtros aqui...
+      };
+      
+      console.log(filters)
+      const useCase = new GetBikeStations();
+      return useCase.execute(databaseId, filters);
+    } catch(error) {
+      console.error('Erro ao buscar as estações de bicicleta:', error);
+
+    }
+  }
+
+  function getDatabaseMock() {
+    const response = bikeStations;
+
+    console.log(response);
+  }
+
   return (
     <>
       {step < 5 ? (
         <div className="h-[100vh] w-[100vw] bg-pearl font-main relative">
           <HeadingBar
             previousButton={() => setStep((param) => param - 1)}
-            skipButton={() => console.log()}
+            skipButton={getDatabaseMock}
             activeStep={step}
           />
           {step === 1 && (

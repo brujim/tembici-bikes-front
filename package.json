@@ -3,6 +3,7 @@
   "author": "Maycon Oliveira & Bruno J Postali",
   "version": "1.0.0",
   "private": true,
+  "proxy": "https://tembici-bikes-back.onrender.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +14,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "next": "12.2.4",
     "prettier": "3.2.5",
     "react": "18.2.0",
