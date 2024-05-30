@@ -1,17 +1,14 @@
 import Image from 'next/image'
-import { SearchInput } from '../SearchInput'
 import { BottomTabs } from '../BottomTabs'
-import { TargetButton } from '../TargetButton/indext'
 import { TipModal } from '../OnboardingTipModal/TipModal'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FilterModal } from '../FilterModal/FilterModal'
+import { SearchInput } from '../SearchInput'
+import { TargetButton } from '../TargetButton/indext'
 const Reveal = require('react-reveal/Reveal')
 
 export const OnboardingMap = () => {
   const [filterStep, setFilterStep] = useState(false)
-  useEffect(() => {
-    console.log(filterStep)
-  }, [filterStep])
 
   return (
     <Reveal>

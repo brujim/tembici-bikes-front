@@ -13,6 +13,7 @@ module.exports = {
       pearl: '#FFFFFF',
       silver: '#EDEDED',
       stone: '#6B6B6B',
+      steel: '#BFBFBF',
       iron: '#272727',
       cooper: '#EC7000',
       emerald: '#24A148',

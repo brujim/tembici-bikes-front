@@ -2,22 +2,27 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { StepBar } from './components/StepBar'
 import { HeadingBar } from './components/HeadingBar'
-import { GetGeolocationResponse } from '../../../types/Onboarding/geolocation'
-import { OnboardingMap } from '../OnboardingMap'
+import { OnboardingWithoutPosition } from './components/OnboardingWithoutPosition'
+import usePosition from '../../stores/usePosition'
 import { UnderstandModal } from '../UnderstandModal/UnderstandModal'
 const Reveal = require('react-reveal/Reveal')
 
 export const Onboarding = () => {
   const [step, setStep] = useState(1)
+  const setPosition = usePosition((state) => state.setPosition)
 
   function onGetPosition(position: GetGeolocationResponse) {
     const latitude = position.coords.latitude
     const longitude = position.coords.longitude
+    setPosition({
+      latitude,
+      longitude
+    })
     setStep(5)
   }
 
   function onFailToGetPosition() {
-    console.log('Unable to retrieve your location')
+    setStep(6)
   }
 
   return (
@@ -119,7 +124,10 @@ export const Onboarding = () => {
           </div>
         </div>
       ) : (
-        <OnboardingMap />
+        <>
+          {step === 5 && <OnboardingMap />}
+          {step === 6 && <OnboardingWithoutPosition />}
+        </>
       )}
     </>
   )
