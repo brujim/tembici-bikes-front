@@ -1,38 +1,30 @@
-import { useEffect } from 'react'
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import { Onboarding } from '../src/components/Onboarding'
 
-const Home: NextPage = () => {
-  const router = useRouter()
-  useEffect(() => {
-    const doneOnboarding = localStorage.getItem('onboarding')
-    if (doneOnboarding) {
-      router.push('/map')
-    } else {
-      router.push('/onboarding')
-    }
-  }, [])
-
+const OnboardingPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Tembici</title>
+        <title>Tembici - Onboarding</title>
         <meta
           property="og:description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
         <meta property="og:site_name" content="Tembici" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Tembici" />
+        <meta property="og:title" content="Tembici - Onboarding" />
         <meta
           name="description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
         <link rel="icon" href="/favicon.png" />
       </Head>
+      <main>
+        <Onboarding />
+      </main>
     </>
   )
 }
 
-export default Home
+export default OnboardingPage
