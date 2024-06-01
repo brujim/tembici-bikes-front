@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
+import { BaseModal } from '../BaseModal/BaseModal'
 
 type UnderstandModalProps = {
   setter: () => void
@@ -6,15 +8,9 @@ type UnderstandModalProps = {
 
 export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
   return (
-    <div className="bg-iron/70 w-[100vw] h-[100vh]">
+    <BaseModal>
+      <div>
 
-      <div className="w-[100%] h-[50%] bg-pearl absolute bottom-20 px-6 py-6">
-        <Image
-          src="/images/filter/itau.png"
-          alt="primeiros passos"
-          width={75}
-          height={38}
-        />
         <h3 className="font-main text-[18px] font-bold">
           Entenda as tarifas de retirada
         </h3>
@@ -62,14 +58,15 @@ export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
           <p className=""> Tarifa alta</p>
         </div>
 
+        <PrimaryButton
+          handle={() => {}}
+          text='Selecionar filtros'
+        />
 
-        <button
-          className="bg-cooper w-[100%] py-4 text-pearl font-main font-semibold rounded-full mt-6"
-          onClick={setter}
-        >
-          Selecionar filtros
-        </button> 
       </div>
-    </div>
+
+</BaseModal>
+
+
   )
 }
