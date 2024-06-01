@@ -5,6 +5,8 @@ import { HeadingBar } from './components/HeadingBar'
 import { OnboardingWithoutPosition } from './components/OnboardingWithoutPosition'
 import usePosition from '../../stores/usePosition'
 import { UnderstandModal } from '../UnderstandModal/UnderstandModal'
+import { GetGeolocationResponse } from '../../types/Onboarding/geolocation'
+import { OnboardingMap } from './components/OnboardingMap'
 const Reveal = require('react-reveal/Reveal')
 
 export const Onboarding = () => {
@@ -86,9 +88,29 @@ export const Onboarding = () => {
             </div>
           )}
           {step === 3 && (
-            <UnderstandModal setter={function (): void {
-              throw new Error('Function not implemented.')
-            } }/>
+            <div className={`flex flex-col justify-between items-center`}>
+              <div className="px-10 absolute bottom-[70%]">
+                <Reveal>
+                  <p className="text-[24px] font-bold text-iron pb-2">
+                    Entenda as categorias
+                  </p>
+                  <p className="text-[18px] text-stone">
+                    Podem existir estações sem tarifa ou com tarifa: baixa,
+                    média ou alta.
+                  </p>
+                </Reveal>
+              </div>
+              <div className="absolute bottom-20">
+                <Reveal>
+                  <Image
+                    src="/images/onboarding/step03.png"
+                    alt="primeiros passos"
+                    width={316}
+                    height={419}
+                  />
+                </Reveal>
+              </div>
+            </div>
           )}
           {step === 4 && (
             <div className={`flex flex-col justify-between items-center`}>
