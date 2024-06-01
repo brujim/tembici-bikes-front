@@ -89,7 +89,7 @@ export const Onboarding = () => {
             </div>
           )}
           {step === 3 && (
-            <UnderstandModal setter={function (): void {
+            <NoResultsModal setter={function (): void {
               throw new Error('Function not implemented.')
             } }/>
           )}

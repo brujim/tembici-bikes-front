@@ -4,12 +4,11 @@ import { useState } from 'react'
 import { children } from 'cheerio/lib/api/traversing'
 
 type BaseModalProps = {
-
 	children: JSX.Element
-
+	useLogo: boolean
 }
 
-export const BaseModal = ({children}: BaseModalProps) => {
+export const BaseModal = ({children, useLogo}: BaseModalProps) => {
 
 	const [isOpen, setIsOpen] = useState(true)
 
@@ -32,7 +31,9 @@ export const BaseModal = ({children}: BaseModalProps) => {
             alt="primeiros passos"
             width={75}
             height={38}
+						className= {useLogo ? "" : "invisible" }
           />
+
           <button
             className="flex items-center"
             onClick={handleCloseModal}

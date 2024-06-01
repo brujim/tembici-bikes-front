@@ -8,9 +8,9 @@ type UnderstandModalProps = {
 
 export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
   return (
-    <BaseModal>
+    <BaseModal useLogo={true}    
+    >
       <div>
-
         <h3 className="font-main text-[18px] font-bold">
           Entenda as tarifas de retirada
         </h3>
@@ -65,8 +65,6 @@ export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
 
       </div>
 
-</BaseModal>
-
-
+    </BaseModal>
   )
 }
