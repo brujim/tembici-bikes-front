@@ -6,9 +6,10 @@ import { children } from 'cheerio/lib/api/traversing'
 type BaseModalProps = {
 	children: JSX.Element
 	useLogo: boolean
+  size?: number // percentage
 }
 
-export const BaseModal = ({children, useLogo}: BaseModalProps) => {
+export const BaseModal = ({children, useLogo, size = 50}: BaseModalProps) => {
 
 	const [isOpen, setIsOpen] = useState(true)
 
@@ -20,10 +21,15 @@ export const BaseModal = ({children, useLogo}: BaseModalProps) => {
 		setIsOpen(false)
   };
 
+  console.log(size)
   return (
 		isOpen && (
 			<div className="bg-iron/70 w-[100vw] h-[100vh]">
-      <div className="w-[100%] h-[50%] bg-pearl absolute bottom-20 px-6 py-6">
+      <div className={`w-[100%] bg-pearl absolute bottom-20 px-6 py-6`}
+        style={{
+          height: size+"%"
+        }}
+      >
         <div className="flex flex-row justify-between items-center" >
 
           <Image

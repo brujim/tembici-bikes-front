@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import { Onboarding } from '../src/components/Onboarding'
+import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
 
 const OnboardingPage: NextPage = () => {
   return (
@@ -21,10 +22,18 @@ const OnboardingPage: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main>
-        <Onboarding />
+        <BikesStationModal bikeStation={{
+          title: '105 - Praça João Duran Alonso',
+          address: 'Largo General Osório, 66 Santa Ifigênia',
+          dayOfWeek: 'Segunda-feira',
+          time: '14h as 20h',
+          type: 'mech',
+          mech: 0,
+          electric: 0
+        }} />
       </main>
     </>
-  )
+  ) 
 }
 
 export default OnboardingPage
