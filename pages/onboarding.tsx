@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import { Onboarding } from '../src/components/Onboarding'
+import { ErrorAlert } from '../src/components/ErrorAlert/ErrorAlert'
 
 const OnboardingPage: NextPage = () => {
   return (
@@ -21,7 +22,9 @@ const OnboardingPage: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main>
-        <Onboarding />
+        <ErrorAlert setter={function (): void {
+          throw new Error('Function not implemented.')
+        } }/>
       </main>
     </>
   )

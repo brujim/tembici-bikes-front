@@ -8,6 +8,7 @@ import { UnderstandModal } from '../UnderstandModal/UnderstandModal'
 import { OnboardingMap } from './components/OnboardingMap'
 import { GetGeolocationResponse } from '../../types/Onboarding/geolocation'
 import { NoResultsModal } from '../NoResultsModal/NoResultsModal'
+import { ErrorAlert } from '../ErrorAlert/ErrorAlert'
 const Reveal = require('react-reveal/Reveal')
 
 export const Onboarding = () => {
@@ -89,9 +90,12 @@ export const Onboarding = () => {
             </div>
           )}
           {step === 3 && (
-            <NoResultsModal setter={function (): void {
-              throw new Error('Function not implemented.')
-            } }/>
+            <div className='absolute bg-emerald h-[100vh]'>
+              <ErrorAlert setter={function (): void {
+                throw new Error('Function not implemented.')
+              } }/>
+            </div>
+            
           )}
           {step === 4 && (
             <div className={`flex flex-col justify-between items-center`}>
