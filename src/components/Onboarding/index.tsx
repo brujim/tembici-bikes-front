@@ -5,6 +5,9 @@ import { HeadingBar } from './components/HeadingBar'
 import { OnboardingWithoutPosition } from './components/OnboardingWithoutPosition'
 import usePosition from '../../stores/usePosition'
 import { UnderstandModal } from '../UnderstandModal/UnderstandModal'
+import { OnboardingMap } from './components/OnboardingMap'
+import { GetGeolocationResponse } from '../../types/Onboarding/geolocation'
+import { NoResultsModal } from '../NoResultsModal/NoResultsModal'
 const Reveal = require('react-reveal/Reveal')
 
 export const Onboarding = () => {
@@ -86,7 +89,7 @@ export const Onboarding = () => {
             </div>
           )}
           {step === 3 && (
-            <UnderstandModal setter={function (): void {
+            <NoResultsModal setter={function (): void {
               throw new Error('Function not implemented.')
             } }/>
           )}
