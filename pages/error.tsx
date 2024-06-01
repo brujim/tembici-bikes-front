@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { Onboarding } from '../src/components/Onboarding'
+import { ErrorAlert } from '../src/components/ErrorAlert/ErrorAlert'
 
-const OnboardingPage: NextPage = () => {
+const ErrorPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Tembici - Onboarding</title>
+        <title>Tembici - Error</title>
         <meta
           property="og:description"
           content="Localize bicicletas de aluguel com simplicidade!"
@@ -21,10 +21,12 @@ const OnboardingPage: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main>
-        <Onboarding />
+        <ErrorAlert setter={function (): void {
+					console.log(' ERROR ALERT Function not implemented.')
+				} } />
       </main>
     </>
   )
 }
 
-export default OnboardingPage
+export default ErrorPage
