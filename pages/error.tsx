@@ -1,13 +1,12 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { Onboarding } from '../src/components/Onboarding'
-import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
+import { ErrorAlert } from '../src/components/ErrorAlert/ErrorAlert'
 
-const OnboardingPage: NextPage = () => {
+const ErrorPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Tembici - Onboarding</title>
+        <title>Tembici - Error</title>
         <meta
           property="og:description"
           content="Localize bicicletas de aluguel com simplicidade!"
@@ -22,18 +21,12 @@ const OnboardingPage: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main>
-        <BikesStationModal bikeStation={{
-          title: '105 - Praça João Duran Alonso',
-          address: 'Largo General Osório, 66 Santa Ifigênia',
-          dayOfWeek: 'Segunda-feira',
-          time: '14h as 20h',
-          type: 'mech',
-          mech: 0,
-          electric: 0
-        }} />
+        <ErrorAlert setter={function (): void {
+					console.log(' ERROR ALERT Function not implemented.')
+				} } />
       </main>
     </>
-  ) 
+  )
 }
 
-export default OnboardingPage
+export default ErrorPage
