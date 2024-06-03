@@ -1,6 +1,3 @@
-import { MouseEventHandler } from 'react'
-import { FiltersTypes } from '../../../types/Filters/filtes'
-
 type ModalSectionProps = {
   types: string
   answer: string

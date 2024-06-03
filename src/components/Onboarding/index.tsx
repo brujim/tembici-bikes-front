@@ -13,13 +13,8 @@ export const Onboarding = () => {
   const [step, setStep] = useState(1)
   const setPosition = usePosition((state) => state.setPosition)
 
-  function onGetPosition(position: GetGeolocationResponse) {
-    const latitude = position.coords.latitude
-    const longitude = position.coords.longitude
-    setPosition({
-      latitude,
-      longitude
-    })
+  function onGetPosition() {
+    localStorage.setItem('getgeo', 'true')
     setStep(5)
   }
 

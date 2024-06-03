@@ -7,10 +7,14 @@ import { getStations } from '../services/services'
 import { SearchInput } from '../src/components/SearchInput'
 import { BottomTabs } from '../src/components/BottomTabs'
 import { FilterModal } from '../src/components/FilterModal'
+import { Loading } from '../src/components/Loading'
+import usePosition from '../src/stores/usePosition'
 
 const MapPage: NextPage = () => {
   const router = useRouter()
   const [loadMap, setLoadMap] = useState(false)
+  const [firstMapLoad, setFirstMapLoad] = useState(true)
+  const [redoLoad, setRedoLoad] = useState(false)
   const [stations, setStations] = useState<any[]>()
   const [openFilters, setOpenFilters] = useState(false)
   const [city, setCity] = useState(null)
@@ -18,6 +22,10 @@ const MapPage: NextPage = () => {
   const [plan, setPlan] = useState(null)
   const [periodicity, setPeriodicity] = useState(null)
   const [day, setDay] = useState(null)
+  const [filtersSelected, setFiltersSelected] = useState(false)
+  const [geoMode, setGeoMode] = useState(false)
+  const [tariff, setTariff] = useState('none')
+  const { latitude, longitude, setPosition } = usePosition()
 
   const filterObject = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -30,25 +38,78 @@ const MapPage: NextPage = () => {
     })
   }
 
-  function handleFilters() {
-    //CHAMADA API COM FILTROS
+  function verifyFilters() {
+    if (geoMode === false) {
+      if (city && type && plan && periodicity && day) {
+        switch (city) {
+          case 'Rio de Janeiro':
+            setPosition({
+              latitude: -22.908333,
+              longitude: -43.196388
+            })
+            break
+          case 'São Paulo':
+            setPosition({
+              latitude: -23.550164466,
+              longitude: -46.633664132
+            })
+            break
+          case 'Curitiba':
+            setPosition({
+              latitude: -25.441105,
+              longitude: -49.276855
+            })
+            break
+          case 'Salvador':
+            setPosition({
+              latitude: -12.974722,
+              longitude: -38.476665
+            })
+            break
+          default:
+            break
+        }
+        return true
+      }
+      return false
+    }
+    if (geoMode === true) {
+      if (type && plan && periodicity && day) {
+        return true
+      }
+      return false
+    }
   }
 
-  function verifyFilters() {
-    if (city && type && plan && periodicity && day) {
-      return true
+  useEffect(() => {
+    if (firstMapLoad) {
+      setLoadMap(true)
+      navigator.geolocation.getCurrentPosition((data) =>
+        setPosition({
+          latitude: data.coords.latitude,
+          longitude: data.coords.longitude
+        })
+      )
+      setTimeout(() => {
+        setLoadMap(false)
+        setFirstMapLoad(false)
+      }, 2000)
     }
-    return false
-  }
+  }, [])
+
+  useEffect(() => {
+    const handleFilters = verifyFilters()
+  }, [city, type, plan, periodicity, day])
 
   useEffect(() => {
     const firstAccess =
       localStorage.getItem('onboarding') === 'first' ? true : false
+    const regularAccess = localStorage.getItem('onboarding') === 'done'
     if (firstAccess) {
-      console.log('abre filter modal')
+      setOpenFilters(true)
     } else {
-      if (localStorage.getItem('onboarding') === 'done') {
-        console.log('acesso normal')
+      if (regularAccess) {
+        return
       } else {
         router.push('/')
       }
@@ -56,15 +117,31 @@ const MapPage: NextPage = () => {
   }, [])
 
   useEffect(() => {
-    getStations()
-      .then((res) => {
-        setStations(res)
-        setLoadMap(true)
-      })
-      .catch((err) => console.log(err))
-  }, [])
+    if (filtersSelected && redoLoad) {
+      setLoadMap(true)
+      const filters = {
+        tariff: tariff,
+        city: city ?? '',
+        type: type ?? '',
+        plan: plan ?? '',
+        periodicity: periodicity ?? '',
+        day: day ?? ''
+      }
+      getStations({ ...filters })
+        .then((res) => {
+          setStations(res)
+          setLoadMap(false)
+          setRedoLoad(false)
+        })
+        .catch((err) => {
+          setLoadMap(false)
+          setRedoLoad(false)
+          console.log(err)
+        })
+    }
+  }, [filtersSelected, tariff, redoLoad])
 
-  const test = (map: any, maps: any, places: any) => {
+  const markers = (map: any, maps: any, places: any) => {
     const markers: any = []
     const infowindows: any = []
     places.forEach((place: any) => {
@@ -75,8 +152,8 @@ const MapPage: NextPage = () => {
         },
         map,
         icon: {
-          url: `/images/tariff/${place.tariff}.svg`, // Substitua 'URL_DA_SUA_IMAGEM' pela URL da imagem desejada
-          scaledSize: new maps.Size(50, 50) // Tamanho da imagem (opcional)
+          url: `/images/tariff/${place.tariff}.svg`,
+          scaledSize: new maps.Size(50, 50)
         }
       })
       markers.push(marker)
@@ -94,6 +171,10 @@ const MapPage: NextPage = () => {
     //     infowindows[i].open(map, marker)
     //   })
     // })
+  }
+
+  if (loadMap) {
+    return <Loading />
   }
 
   return (
@@ -122,36 +203,38 @@ const MapPage: NextPage = () => {
                 setters={filterObject.setters}
                 states={filterObject.states}
                 clearFilters={clearFilters}
+                sendFilters={setFiltersSelected}
+                controller={setRedoLoad}
               />
             </div>
           )}
           <div className="absolute top-10 z-20 w-[90%] left-5">
             <SearchInput openFilters={() => setOpenFilters(true)} />
+            {/* <button onClick={() => console.log(cordinates)}>CONSOLE</button> */}
           </div>
-          {loadMap && (
-            <div className="h-[100vh] w-[100vw]">
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: 'AIzaSyCInglOulrm7ViPoBXW5N6E_lNKNIgVPS4'
-                }}
-                defaultCenter={{
-                  lat: -23.556831106,
-                  lng: -46.653830718
-                }}
-                defaultZoom={15}
-                yesIWantToUseGoogleMapApiInternals
-                // key={filterSetted}
-                onGoogleApiLoaded={({ map, maps }) => {
-                  const verify = verifyFilters()
-                  if (verify) {
-                    test(map, maps, stations)
-                  }
-                }}
-              ></GoogleMapReact>
-            </div>
-          )}
+
+          <div className="h-[100vh] w-[100vw]">
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: 'AIzaSyCInglOulrm7ViPoBXW5N6E_lNKNIgVPS4'
+              }}
+              defaultCenter={{
+                lat: latitude ?? 0,
+                lng: longitude ?? 0
+              }}
+              defaultZoom={16}
+              yesIWantToUseGoogleMapApiInternals
+              onGoogleApiLoaded={({ map, maps }) => {
+                if (filtersSelected && !loadMap && stations) {
+                  markers(map, maps, stations)
+                  setFiltersSelected(false)
+                }
+              }}
+            />
+          </div>
+
           <div className="absolute z-20 bottom-0 w-[100vw]">
-            <BottomTabs />
+            <BottomTabs tariff={tariff} setter={setTariff} />
           </div>
         </div>
       </main>
