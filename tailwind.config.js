@@ -20,7 +20,10 @@ module.exports = {
       sapphire: '#003399',
       ruby: '#DA1E28',
       gold: '#F1A61B',
-      inactive: '#888888'
+      inactive: '#888888',
+      ironwhite: '#475467',
+      grey: '#4D4D4D',
+      pearlgray: '#F5F5F5'
     },
 
     fontFamily: {
