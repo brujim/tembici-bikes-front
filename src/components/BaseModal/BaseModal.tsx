@@ -7,9 +7,10 @@ type BaseModalProps = {
 	children: JSX.Element
 	useLogo: boolean
   size?: number // percentage
+  bottom?: number
 }
 
-export const BaseModal = ({children, useLogo, size = 50}: BaseModalProps) => {
+export const BaseModal = ({children, useLogo, size = 50, bottom = 10}: BaseModalProps) => {
 
 	const [isOpen, setIsOpen] = useState(true)
 
@@ -25,9 +26,10 @@ export const BaseModal = ({children, useLogo, size = 50}: BaseModalProps) => {
   return (
 		isOpen && (
 			<div className="bg-iron/70 w-[100vw] h-[100vh]">
-      <div className={`w-[100%] bg-pearl absolute bottom-20 px-6 py-6`}
+      <div className={`w-[100%] bg-pearl absolute px-6 py-6`}
         style={{
-          height: size+"%"
+          height: size+"%",
+          bottom: bottom+"%"
         }}
       >
         <div className="flex flex-row justify-between items-center" >

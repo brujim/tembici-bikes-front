@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
+import { BikeStationPrice } from './components/BikeStationPrice'
 
 type BikesStationModalProps = {
   bikeStation: BikeStationProps
@@ -14,7 +15,7 @@ type BikeStationProps = {
   mech: number
   electric: number
   dayOfWeek: string
-
+  tariff: string
 
 }
 
@@ -23,15 +24,16 @@ export const BikesStationModal = ({ bikeStation }: BikesStationModalProps) => {
 
     <BaseModal
       useLogo={true} 
-      size={70}   
+      size={70}
+      bottom={0}
     >
 
-    <div className="flex flex-col justify-center mt-16">
+    <div className="flex flex-col justify-center mt-6">
 
       <h3 className="font-main text-[20px] font-bold leading-6 font-semibold text-ironwhite	">
         {bikeStation.title}
       </h3>
-      <p className="font-main font-normal text-[16px] leading-4 text-gray">
+      <p className="font-main font-normal text-[16px] leading-4 text-gray mb-5">
         {bikeStation.address}
       </p>
 
@@ -43,24 +45,25 @@ export const BikesStationModal = ({ bikeStation }: BikesStationModalProps) => {
         </div>
       </div>
 
-      <div className="flex flex-row justify-between items-center bg-pearlgray p-4 mb-6 rounded-2xl">
-        <div className='flex flex-rox w-[50%]'> 
-        <Image
-          src="/images/button/electric.svg"
-          alt="bike eletrica"
-          width={24}
-          height={24}
-        />
-        <p className='font-medium text-[14px] leading-4 max-w-[50%] ml-2'>Retirada de Bike elétrica</p>
-
-        </div>
+      <BikeStationPrice 
+        type={bikeStation.type}
+        mech={bikeStation.mech}
+        electric={bikeStation.electric}
+        tariff={bikeStation.tariff}
+      />
         
-        <div className='flex flex-col '>
-          <p>{bikeStation.dayOfWeek}</p>
-          <p>{bikeStation.time}</p>
-        </div>
+      <div className='flex flex-col mb-3'>
+        <p className="font-main font-semibold text-[16px] leading-5 text-ironwhite">Veja o valor de retirada da 
+          <span className="font-main font-bold text-[16px] leading-5 text-ironwhite"> bike {bikeStation.type === 'electric' ? 'comum' : 'elétrica'} </span> 
+          nessa estação, para os mesmos filtros</p>
       </div>
 
+      <BikeStationPrice 
+        type={bikeStation.type === 'electric' ? 'mech' : 'electric'}
+        mech={bikeStation.mech}
+        electric={bikeStation.electric}
+        tariff={bikeStation.tariff}
+      />
 
       <PrimaryButton
         handle={() => {}}

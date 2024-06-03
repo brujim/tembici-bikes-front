@@ -27,9 +27,10 @@ const OnboardingPage: NextPage = () => {
           address: 'Largo General Osório, 66 Santa Ifigênia',
           dayOfWeek: 'Segunda-feira',
           time: '14h as 20h',
-          type: 'mech',
+          type: 'electric',
           mech: 0,
-          electric: 0
+          electric: 12.50,
+          tariff: 'low'
         }} />
       </main>
     </>
