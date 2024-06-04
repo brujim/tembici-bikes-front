@@ -18,12 +18,14 @@ const ErrorPage: NextPage = () => {
           name="description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/fav.ico" />
       </Head>
       <main>
-        <ErrorAlert setter={function (): void {
-					console.log(' ERROR ALERT Function not implemented.')
-				} } />
+        <ErrorAlert
+          setter={function (): void {
+            console.log(' ERROR ALERT Function not implemented.')
+          }}
+        />
       </main>
     </>
   )

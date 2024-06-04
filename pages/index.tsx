@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           name="description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/fav.ico" />
       </Head>
     </>
   )

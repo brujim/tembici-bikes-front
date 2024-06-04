@@ -39,7 +39,7 @@ function mountURL({ city, type, plan, periodicity, day, tariff }: StatioRequest)
 
   let uri = 'stations/1g_uXx2sEpwnhwWBtuD_KAfeqe3fhgwHXtOg5muG7mXM/'
   if (city) {
-    uri = uri + 'Testing' + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
+    uri = uri + city + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
   } else {
     uri = uri + '?' + type + '&' + plan + '&' + periodicity + '&' + day
   }

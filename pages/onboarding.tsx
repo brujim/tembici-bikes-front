@@ -19,22 +19,13 @@ const OnboardingPage: NextPage = () => {
           name="description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/fav.ico" />
       </Head>
       <main>
-        <BikesStationModal bikeStation={{
-          title: '105 - Praça João Duran Alonso',
-          address: 'Largo General Osório, 66 Santa Ifigênia',
-          dayOfWeek: 'Segunda-feira',
-          time: '14h as 20h',
-          type: 'electric',
-          mech: 0,
-          electric: 12.50,
-          tariff: 'low'
-        }} />
+        <Onboarding />
       </main>
     </>
-  ) 
+  )
 }
 
 export default OnboardingPage
