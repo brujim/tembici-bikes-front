@@ -1,3 +1,73 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-Extralight.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Mori';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local('Capuche'),
+    url('./Mori/PPMoriGothic-ExtraBold.otf') format('opentype');
+}

@@ -17,7 +17,7 @@ export const filtersWithCity =
         'Comum', 'Elétrica'
       ],
       value: [
-        'Mecanica', 'Elétrica'
+        'mech', 'electric'
       ]
     },
     {
@@ -61,7 +61,7 @@ export const filtersWithoutCity =
         'Comum', 'Elétrica'
       ],
       value: [
-        'Mecanica', 'Elétrica'
+        'mech', 'electric'
       ]
     },
     {

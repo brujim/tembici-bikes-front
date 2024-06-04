@@ -9,6 +9,7 @@ import { BottomTabs } from '../src/components/BottomTabs'
 import { FilterModal } from '../src/components/FilterModal'
 import { Loading } from '../src/components/Loading'
 import usePosition from '../src/stores/usePosition'
+import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
 
 const MapPage: NextPage = () => {
   const router = useRouter()
@@ -25,6 +26,8 @@ const MapPage: NextPage = () => {
   const [filtersSelected, setFiltersSelected] = useState(false)
   const [geoMode, setGeoMode] = useState(false)
   const [tariff, setTariff] = useState('none')
+  const [infoModal, setInfoModal] = useState(false)
+  const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
 
   const filterObject = {
@@ -32,11 +35,20 @@ const MapPage: NextPage = () => {
     states: [city, type, plan, periodicity, day]
   }
 
+  const reloadOptions = {
+    setRedoLoad,
+    setFiltersSelected
+  }
+
   function clearFilters() {
     filterObject.setters.map((setter) => {
       setter(null)
     })
   }
+
+  // function getInfoModal(place: any) {
+  //   setDataInfoModal(place)
+  // }
 
   function verifyFilters() {
     if (geoMode === false) {
@@ -142,9 +154,10 @@ const MapPage: NextPage = () => {
   }, [filtersSelected, tariff, redoLoad])
 
   const markers = (map: any, maps: any, places: any) => {
+    console.log(maps)
     const markers: any = []
     const infowindows: any = []
-    places.forEach((place: any) => {
+    places.forEach((place: any, i: number) => {
       const marker = new maps.Marker({
         position: {
           lat: parseFloat(place.lat),
@@ -156,21 +169,14 @@ const MapPage: NextPage = () => {
           scaledSize: new maps.Size(50, 50)
         }
       })
+
+      marker.addListener('click', () => {
+        setInfoModal(true)
+        setDataInfoModal(place)
+      })
+
       markers.push(marker)
     })
-
-    //   // infowindows.push(
-    //   //   new maps.InfoWindow({
-    //   //     content: getInfoWindowString(place)
-    //   //   })
-    //   // )
-    // })
-
-    // markers.forEach((marker: any, i: number) => {
-    //   marker.addListener('click', () => {
-    //     infowindows[i].open(map, marker)
-    //   })
-    // })
   }
 
   if (loadMap) {
@@ -192,12 +198,12 @@ const MapPage: NextPage = () => {
           name="description"
           content="Localize bicicletas de aluguel com simplicidade!"
         />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/fav.ico" />
       </Head>
       <main>
         <div className="relative">
           {openFilters && (
-            <div className="absolute top-0 z-30">
+            <div className="absolute top-0 z-30 font-normal">
               <FilterModal
                 closeFilter={() => setOpenFilters(false)}
                 setters={filterObject.setters}
@@ -232,9 +238,30 @@ const MapPage: NextPage = () => {
               }}
             />
           </div>
-
+          {infoModal && (
+            <div className="absolute bottom-0 z-40">
+              <BikesStationModal
+                bikeStation={{
+                  title: dataInfoModal.title,
+                  address: dataInfoModal.address,
+                  time: dataInfoModal.time,
+                  type: dataInfoModal.type,
+                  mech: parseFloat(dataInfoModal.mech),
+                  electric: parseFloat(dataInfoModal.electric),
+                  dayOfWeek: dataInfoModal.dayOfWeek,
+                  tariff: dataInfoModal.tariff
+                }}
+                close={() => setInfoModal(false)}
+              />
+            </div>
+          )}
           <div className="absolute z-20 bottom-0 w-[100vw]">
-            <BottomTabs tariff={tariff} setter={setTariff} />
+            <BottomTabs
+              tariff={tariff}
+              setter={setTariff}
+              load={setRedoLoad}
+              filtersUpdate={setFiltersSelected}
+            />
           </div>
         </div>
       </main>

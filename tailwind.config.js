@@ -28,7 +28,7 @@ module.exports = {
     },
 
     fontFamily: {
-      main: ['Nunito', 'sans']
+      main: ['Mori', 'sans']
     },
     extend: {
       boxShadow: {
