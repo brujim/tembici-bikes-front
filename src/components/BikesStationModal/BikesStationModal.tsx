@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
 import { BikeStationPrice } from './components/BikeStationPrice'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import React, { useState } from 'react';
 
 type BikesStationModalProps = {
   bikeStation: BikeStationProps
@@ -16,10 +18,17 @@ type BikeStationProps = {
   electric: number
   dayOfWeek: string
   tariff: string
-
 }
 
 export const BikesStationModal = ({ bikeStation }: BikesStationModalProps) => {
+  const [text, setText] = useState('');
+  const [copied, setCopied] = useState(false);
+  
+  const handleCopy = () => {
+    setCopied(true);
+    setText(bikeStation.address)
+  };
+
   return (
 
     <BaseModal
@@ -33,9 +42,23 @@ export const BikesStationModal = ({ bikeStation }: BikesStationModalProps) => {
       <h3 className="font-main text-[20px] font-bold leading-6 font-semibold text-ironwhite	">
         {bikeStation.title}
       </h3>
-      <p className="font-main font-normal text-[16px] leading-4 text-gray mb-5">
-        {bikeStation.address}
-      </p>
+
+      <div className="flex flex-row justify-between items-center text-center mb-5">
+        <p className="font-main font-normal text-[16px] leading-4 text-gray">
+          {bikeStation.address}
+        </p>
+        <CopyToClipboard text={text} onCopy={handleCopy}>
+          <button>
+            <Image
+              src="/images/button/copy.svg"
+              alt="Copiar endereço"
+              width={16}
+              height={16}
+            />
+          </button>
+        </CopyToClipboard>
+        
+      </div>
 
       <div className="flex flex-row justify-between items-center bg-pearlgray p-4 mb-6 rounded-2xl">
         <p className='font-bold text-[16px] leading-5 max-w-[50%]'>Período da retirada</p>
