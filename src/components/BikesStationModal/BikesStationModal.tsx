@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
 import { BikeStationPrice } from './components/BikeStationPrice'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import React, { useState } from 'react'
 
 type BikesStationModalProps = {
