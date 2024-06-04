@@ -16,11 +16,6 @@ export const ModalSection = ({
   indexes,
   states
 }: ModalSectionProps) => {
-  // function handleSelected(type, index) {
-
-  //   setCity(values[index])
-  // }
-
   return (
     <div className="border-t-[1px] border-t-steel font-main font-bold px-4 mt-4 py-4 flex flex-col gap-4">
       <p>{answer}</p>

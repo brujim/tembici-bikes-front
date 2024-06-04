@@ -11,14 +11,22 @@ type StatioRequest = {
 }
 
 export async function getStations({ city, type, plan, periodicity, day, tariff }: StatioRequest) {
-  const filterParams = {
+
+  const filterParams = city ? {
     city,
     type,
     plan,
     periodicity,
     day,
     tariff
+  } : {
+    type,
+    plan,
+    periodicity,
+    day,
+    tariff
   }
+  console.log(filterParams)
   const method = schema.GET.method
   const url = mountURL({ ...filterParams })
   const headers = {
@@ -41,7 +49,7 @@ function mountURL({ city, type, plan, periodicity, day, tariff }: StatioRequest)
   if (city) {
     uri = uri + city + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
   } else {
-    uri = uri + '?' + type + '&' + plan + '&' + periodicity + '&' + day
+    uri = uri + 'São Paulo' + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
   }
   return uri
 }

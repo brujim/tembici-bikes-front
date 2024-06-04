@@ -22,7 +22,7 @@ export const BaseModal = ({
     isOpen && (
       <div className="bg-iron/70 w-[100vw] h-[100vh]">
         <div
-          className={`w-[100%] bg-pearl absolute px-6 py-6`}
+          className={`w-[100%] bg-pearl absolute px-6 py-6 overflow-y-scroll`}
           style={{
             height: size + '%',
             bottom: bottom + '%'

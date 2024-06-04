@@ -30,9 +30,14 @@ const MapPage: NextPage = () => {
   const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
 
-  const filterObject = {
+  const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
     states: [city, type, plan, periodicity, day]
+  }
+
+  const filterObjectWithoutCity = {
+    setters: [setType, setPlan, setPeriodicity, setDay],
+    states: [type, plan, periodicity, day]
   }
 
   const reloadOptions = {
@@ -41,7 +46,7 @@ const MapPage: NextPage = () => {
   }
 
   function clearFilters() {
-    filterObject.setters.map((setter) => {
+    filterObjectWithCity.setters.map((setter) => {
       setter(null)
     })
   }
@@ -206,8 +211,10 @@ const MapPage: NextPage = () => {
             <div className="absolute top-0 z-30 font-normal">
               <FilterModal
                 closeFilter={() => setOpenFilters(false)}
-                setters={filterObject.setters}
-                states={filterObject.states}
+                settersWithCity={filterObjectWithCity.setters}
+                statesWithCity={filterObjectWithCity.states}
+                settersWithoutCity={filterObjectWithoutCity.setters}
+                statesWithoutCity={filterObjectWithoutCity.states}
                 clearFilters={clearFilters}
                 sendFilters={setFiltersSelected}
                 controller={setRedoLoad}
