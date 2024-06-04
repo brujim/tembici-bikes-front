@@ -21,7 +21,7 @@ module.exports = {
       ruby: '#DA1E28',
       gold: '#F1A61B',
       inactive: '#888888',
-      rust: '#B85700'
+      rust: '#B85700',
       ironwhite: '#475467',
       grey: '#4D4D4D',
       pearlgray: '#F5F5F5'

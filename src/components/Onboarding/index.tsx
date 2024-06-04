@@ -5,15 +5,10 @@ import { HeadingBar } from './components/HeadingBar'
 import { OnboardingWithoutPosition } from './components/OnboardingWithoutPosition'
 import usePosition from '../../stores/usePosition'
 import { UnderstandModal } from '../UnderstandModal/UnderstandModal'
-<<<<<<< feat/filter-modal
 import { GetGeolocationResponse } from '../../types/Onboarding/geolocation'
 import { OnboardingMap } from './components/OnboardingMap'
-=======
-import { OnboardingMap } from './components/OnboardingMap'
-import { GetGeolocationResponse } from '../../types/Onboarding/geolocation'
 import { NoResultsModal } from '../NoResultsModal/NoResultsModal'
 import { ErrorAlert } from '../ErrorAlert/ErrorAlert'
->>>>>>> main
 const Reveal = require('react-reveal/Reveal')
 
 export const Onboarding = () => {
