@@ -7,8 +7,10 @@ const Reveal = require('react-reveal/Reveal')
 
 type FilterModalProps = {
   closeFilter: () => void
-  setters: any[]
-  states: any[]
+  settersWithCity: any[]
+  statesWithCity: any[]
+  settersWithoutCity: any[]
+  statesWithoutCity: any[]
   clearFilters: any
   sendFilters: any
   controller: any
@@ -16,8 +18,10 @@ type FilterModalProps = {
 
 export const FilterModal = ({
   closeFilter,
-  setters,
-  states,
+  settersWithCity,
+  statesWithCity,
+  settersWithoutCity,
+  statesWithoutCity,
   clearFilters,
   sendFilters,
   controller
@@ -59,15 +63,26 @@ export const FilterModal = ({
 
   useEffect(() => {
     if (hasPosition) {
-      if (states[0] && states[1] && states[2] && states[3]) {
+      if (
+        statesWithoutCity[0] &&
+        statesWithoutCity[1] &&
+        statesWithoutCity[2] &&
+        statesWithoutCity[3]
+      ) {
         setCanContinue(true)
       }
     } else {
-      if (states[0] && states[1] && states[2] && states[3] && states[4]) {
+      if (
+        statesWithCity[0] &&
+        statesWithCity[1] &&
+        statesWithCity[2] &&
+        statesWithCity[3] &&
+        statesWithCity[4]
+      ) {
         setCanContinue(true)
       }
     }
-  }, [states])
+  }, [statesWithoutCity, statesWithCity])
 
   return (
     <Reveal>
@@ -91,8 +106,8 @@ export const FilterModal = ({
                     answer={filter.answer}
                     options={filter.options}
                     values={filter.value}
-                    setters={[...setters]}
-                    states={[...states]}
+                    setters={[...settersWithoutCity]}
+                    states={[...statesWithoutCity]}
                     indexes={index}
                   />
                 )
@@ -108,8 +123,8 @@ export const FilterModal = ({
                     answer={filter.answer}
                     options={filter.options}
                     values={filter.value}
-                    setters={[...setters]}
-                    states={[...states]}
+                    setters={[...settersWithCity]}
+                    states={[...statesWithCity]}
                     indexes={index}
                   />
                 )
@@ -128,7 +143,7 @@ export const FilterModal = ({
               Limpar filtros
             </p>
             <button
-              className={`px-8 py-4 rounded-full text-pearl font-main ${canContinue ? 'bg-cooper' : 'bg-steel'}`}
+              className={`px-5 py-4 rounded-full text-pearl font-main ${canContinue ? 'bg-cooper' : 'bg-steel'}`}
               onClick={() => {
                 sendFilters(true)
                 controller(true)
@@ -136,7 +151,7 @@ export const FilterModal = ({
                 if (localStorage.getItem('onboarding') === 'first') {
                   localStorage.setItem('onboarding', 'done')
                 }
-                setMapCenter(states[0])
+                setMapCenter(statesWithCity[0])
               }}
               disabled={!canContinue}
             >
