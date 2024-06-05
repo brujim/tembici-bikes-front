@@ -1,15 +1,11 @@
 import Image from 'next/image'
 import { BottomTabs } from '../BottomTabs'
 import { TipModal } from '../OnboardingTipModal/TipModal'
-import { useState } from 'react'
-import { FilterModal } from '../FilterModal/FilterModal'
 import { SearchInput } from '../SearchInput'
 import { TargetButton } from '../TargetButton/indext'
 const Reveal = require('react-reveal/Reveal')
 
 export const OnboardingMap = () => {
-  const [filterStep, setFilterStep] = useState(false)
-
   return (
     <Reveal>
       <div className="relative w-[100vw] h-[100vh]">
@@ -24,15 +20,9 @@ export const OnboardingMap = () => {
           <BottomTabs />
         </div>
       </div>
-      {!filterStep ? (
-        <div className="absolute top-0">
-          <TipModal setter={() => setFilterStep((param) => !param)} />
-        </div>
-      ) : (
-        <div className="absolute bottom-0 bg-iron/70 w-[100vw] h-[100vh]">
-          <FilterModal />
-        </div>
-      )}
+      <div className="absolute top-0">
+        <TipModal />
+      </div>
     </Reveal>
   )
 }

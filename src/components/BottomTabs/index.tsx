@@ -21,7 +21,7 @@ export const BottomTabs = ({
         }}
       >
         <p
-          className={`font-bold font-main text-[18px] text-inactive ${tariff === 'none' ? 'text-iron' : 'text-inactive'}`}
+          className={`font-semibold font-main text-[18px] text-inactive ${tariff === 'none' ? 'text-iron' : 'text-inactive'}`}
         >
           Sem tarifa
         </p>
@@ -35,7 +35,7 @@ export const BottomTabs = ({
         }}
       >
         <p
-          className={`font-bold font-main text-[18px] text-inactive ${tariff === 'tariff' ? 'text-iron' : 'text-inactive'}`}
+          className={`font-semibold font-main text-[18px] text-inactive ${tariff === 'tariff' ? 'text-iron' : 'text-inactive'}`}
         >
           Com tarifa
         </p>

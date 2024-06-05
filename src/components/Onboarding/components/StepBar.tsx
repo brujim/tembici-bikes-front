@@ -2,14 +2,14 @@ import Image from 'next/image'
 
 type StepBarProps = {
   activeStep: number
-  nextButton: () => void
+  stepButton: any
   getPositionSuccessfull: (state: any) => void
   getPositionFailure: () => void
 }
 
 export const StepBar = ({
   activeStep,
-  nextButton,
+  stepButton,
   getPositionSuccessfull,
   getPositionFailure
 }: StepBarProps) => {
@@ -18,15 +18,19 @@ export const StepBar = ({
       <div className="flex gap-4">
         <div
           className={`w-[12px] h-[12px] rounded-full ${activeStep === 1 ? 'bg-cooper' : 'bg-silver'}`}
+          onClick={() => stepButton(1)}
         />
         <div
           className={`w-[12px] h-[12px] rounded-full ${activeStep === 2 ? 'bg-cooper' : 'bg-silver'}`}
+          onClick={() => stepButton(2)}
         />
         <div
           className={`w-[12px] h-[12px] rounded-full ${activeStep === 3 ? 'bg-cooper' : 'bg-silver'}`}
+          onClick={() => stepButton(3)}
         />
         <div
           className={`w-[12px] h-[12px] rounded-full ${activeStep === 4 ? 'bg-cooper' : 'bg-silver'}`}
+          onClick={() => stepButton(4)}
         />
       </div>
       <Image
@@ -34,15 +38,16 @@ export const StepBar = ({
         alt="próxima etapa"
         width={56}
         height={56}
-        onClick={
-          activeStep < 4
-            ? nextButton
-            : () =>
-                navigator.geolocation.getCurrentPosition(
-                  getPositionSuccessfull,
-                  getPositionFailure
-                )
-        }
+        onClick={() => {
+          if (activeStep < 4) {
+            stepButton((param: number) => param + 1)
+          } else {
+            navigator.geolocation.getCurrentPosition(
+              getPositionSuccessfull,
+              getPositionFailure
+            )
+          }
+        }}
       />
     </div>
   )
