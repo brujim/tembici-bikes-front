@@ -136,7 +136,7 @@ export const Onboarding = () => {
           <div className="absolute bottom-0">
             <StepBar
               activeStep={step}
-              nextButton={() => setStep((param) => param + 1)}
+              stepButton={setStep}
               getPositionSuccessfull={onGetPosition}
               getPositionFailure={onFailToGetPosition}
             />
