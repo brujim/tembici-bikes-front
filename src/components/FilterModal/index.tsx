@@ -92,7 +92,7 @@ export const FilterModal = ({
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
           </div>
-          <h3 className="font-main font-extrabold text-[18px] px-4 mt-4 py-2">
+          <h3 className="font-main font-semibold text-[18px] px-4 mt-4 py-2">
             Selecione abaixo os filtros para encontrar a estação ideal para
             você:
           </h3>

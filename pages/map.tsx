@@ -11,6 +11,9 @@ import { Loading } from '../src/components/Loading'
 import usePosition from '../src/stores/usePosition'
 import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
 
+import Image from 'next/image'
+
+
 const MapPage: NextPage = () => {
   const router = useRouter()
   const [loadMap, setLoadMap] = useState(false)
@@ -223,7 +226,30 @@ const MapPage: NextPage = () => {
           )}
           <div className="absolute top-10 z-20 w-[90%] left-5">
             <SearchInput openFilters={() => setOpenFilters(true)} />
-            {/* <button onClick={() => console.log(cordinates)}>CONSOLE</button> */}
+            
+            <div className=' mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide'>
+              <button className='flex items-center text-center p-1 rounded-full bg-pearl'>
+                <Image
+                  src="/images/button/dollar.svg"
+                  alt="tarifas"
+                  width={20}
+                  height={20}
+                  className='absolute'
+                />
+                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Entenda as tarifas</span>
+              </button>
+
+              <button className='flex h-8 items-center text-center p-1 rounded-full bg-pearl'>
+                <Image
+                  src="/images/button/info.svg"
+                  alt="tarifas"
+                  width={20}
+                  height={20}
+                />
+                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Como funciona?</span>
+              </button>
+            </div>
+            
           </div>
 
           <div className="h-[100vh] w-[100vw]">
