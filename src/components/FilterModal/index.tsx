@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { filtersWithCity, filtersWithoutCity } from '../../data/filters'
 import { ModalSection } from './components/ModalSection'
 import usePosition from '../../stores/usePosition'
+import Image from 'next/image'
 
 const Reveal = require('react-reveal/Reveal')
 
@@ -27,6 +28,7 @@ export const FilterModal = ({
   controller
 }: FilterModalProps) => {
   const [canContinue, setCanContinue] = useState(false)
+  const [warning, setWarning] = useState(false)
   const { latitude, longitude, setPosition } = usePosition()
   const hasPosition = localStorage.getItem('getgeo') === 'true' ? true : false
 
@@ -87,6 +89,30 @@ export const FilterModal = ({
   return (
     <Reveal>
       <div className="w-[100vw] h-[100vh] bg-stone/70">
+        {warning && (
+          <div className="bg-iron/70 w-[100vw] h-full absolute top-0 z-50">
+            <div className="w-[260px] h-[180px] rounded-lg bg-pearl absolute bottom-[8rem] right-16 px-6 flex flex-col items-center justify-center">
+              <p className="font-main leading-5">
+                Para realizar uma pesquisa, primeiro selecione{' '}
+                <strong>todos os filtros.</strong>
+              </p>
+              <button
+                className="bg-cooper w-[100%] py-3 text-pearl font-main font-semibold rounded-full mt-4"
+                onClick={() => setWarning(false)}
+              >
+                Entendi
+              </button>
+            </div>
+            <div className="absolute bottom-[6rem] right-24">
+              <Image
+                src="/images/onboarding/poligono-d.svg"
+                width={43}
+                height={37}
+                alt="tip box"
+              />
+            </div>
+          </div>
+        )}
         <div className="bg-pearl h-[90vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
           <div className="flex justify-between items-center pt-5 px-4">
             <img src="/images/filter/itau.png" />
@@ -145,15 +171,18 @@ export const FilterModal = ({
             <button
               className={`px-5 py-4 rounded-full text-pearl font-main ${canContinue ? 'bg-cooper' : 'bg-steel'}`}
               onClick={() => {
-                sendFilters(true)
-                controller(true)
-                closeFilter()
-                if (localStorage.getItem('onboarding') === 'first') {
-                  localStorage.setItem('onboarding', 'done')
+                if (canContinue) {
+                  sendFilters(true)
+                  controller(true)
+                  closeFilter()
+                  if (localStorage.getItem('onboarding') === 'first') {
+                    localStorage.setItem('onboarding', 'done')
+                  }
+                  setMapCenter(statesWithCity[0])
+                } else {
+                  setWarning(true)
                 }
-                setMapCenter(statesWithCity[0])
               }}
-              disabled={!canContinue}
             >
               Pesquisar estações
             </button>

@@ -23,7 +23,7 @@ export const ModalSection = ({
         {options.map((option, index) => {
           return (
             <span
-              className={`border-[1px]  font-normal border-cooper px-6 py-2 rounded-full flex-wrap ${states[indexes] === values[index] && 'bg-cooper text-pearl border-rust'}`}
+              className={`font-normal border-[1px] border-cooper px-6 py-2 rounded-full flex-wrap ${states[indexes] === values[index] && 'bg-cooper text-pearl border-rust'}`}
               key={index}
               onClick={() => {
                 setters[indexes](values[index])

@@ -8,7 +8,7 @@ export const SearchInput = ({ openFilters }: SearchInputProps) => {
   return (
     <div className="bg-pearl w-[100%] h-[111px] shadow-lg rounded-xl relative">
       <div className="flex flex-col items-center justify-between h-full py-4">
-        <h3 className="font-main font-bold text-[18px]">
+        <h3 className="font-main font-semibold text-[18px]">
           Pesquisa de Preço Dinâmico
         </h3>
         <span className="absolute top-[4.1rem] left-7">

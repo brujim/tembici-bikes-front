@@ -1,10 +1,8 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
-type TipModalProps = {
-  setter: () => void
-}
-
-export const TipModal = ({ setter }: TipModalProps) => {
+export const TipModal = () => {
+  const router = useRouter()
   return (
     <div className="bg-iron/70 w-[100vw] h-[100vh]">
       <div className="absolute top-[5.5rem] right-7 bg-pearl w-[55px] h-[55px] rounded-md flex items-center justify-center">
@@ -33,7 +31,10 @@ export const TipModal = ({ setter }: TipModalProps) => {
         </p>
         <button
           className="bg-cooper w-[100%] py-4 text-pearl font-main font-semibold rounded-full mt-6"
-          onClick={setter}
+          onClick={() => {
+            localStorage.setItem('onboarding', 'first')
+            router.push('/')
+          }}
         >
           Selecionar filtros
         </button>

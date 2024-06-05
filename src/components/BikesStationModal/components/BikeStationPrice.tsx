@@ -55,51 +55,54 @@ export const BikeStationPrice = ({
     <div className="flex flex-row justify-between items-center bg-pearlgray p-4 mb-6 rounded-2xl">
       <div className="flex flex-rox w-[35%]">
         <Image
-          src="/images/button/electric.svg"
+          src={`/images/button/${type}.svg`}
           alt="bike eletrica"
-          width={32}
-          height={32}
+          width={40}
+          height={40}
         />
         <p className="font-normal text-[14px] leading-4 ml-2">
           {serializeTitle()}
         </p>
       </div>
-      {calculateTariff() === 'high' && (
-        <div className="w-[30%]">
-          <p className="font-semibold	text-ruby text-[24px]">
-            {getPriceCurrency(getPrice())}
-          </p>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center">
+          {calculateTariff() === 'high' && (
+            <div className="mb-1">
+              <p className="font-semibold	text-ruby text-[24px]">
+                {getPriceCurrency(getPrice())}
+              </p>
+            </div>
+          )}
+          {calculateTariff() === 'median' && (
+            <div className="mb-1">
+              <p className="font-semibold	text-gold text-[24px]">
+                {getPriceCurrency(getPrice())}
+              </p>
+            </div>
+          )}
+          {calculateTariff() === 'low' && (
+            <div className="mb-1">
+              <p className="font-semibold	text-sapphire text-[24px]">
+                {getPriceCurrency(getPrice())}
+              </p>
+            </div>
+          )}
+          {calculateTariff() === 'none' && (
+            <div className="mb-1">
+              <p className="font-semibold	text-emerald text-[24px]">
+                {getPriceCurrency(getPrice())}
+              </p>
+            </div>
+          )}
         </div>
-      )}
-      {calculateTariff() === 'median' && (
-        <div className="w-[30%]">
-          <p className="font-semibold	text-gold text-[24px]">
-            {getPriceCurrency(getPrice())}
-          </p>
+        <div className="flex flex-col">
+          <Image
+            src={`/images/tariff/${calculateTariff()}-tariff.svg`}
+            alt="bike eletrica"
+            width={40}
+            height={32}
+          />
         </div>
-      )}
-      {calculateTariff() === 'low' && (
-        <div className="w-[30%]">
-          <p className="font-semibold	text-sapphire text-[24px]">
-            {getPriceCurrency(getPrice())}
-          </p>
-        </div>
-      )}
-      {calculateTariff() === 'none' && (
-        <div className="w-[30%]">
-          <p className="font-semibold	text-emerald text-[24px]">
-            {getPriceCurrency(getPrice())}
-          </p>
-        </div>
-      )}
-
-      <div className="flex flex-col w-[15%]">
-        <Image
-          src={`/images/tariff/${calculateTariff()}-tariff.svg`}
-          alt="bike eletrica"
-          width={40}
-          height={32}
-        />
       </div>
     </div>
   )
