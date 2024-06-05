@@ -3,14 +3,14 @@ import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
 
 type UnderstandModalProps = {
-  setter: () => void
+  setter?: () => void
+  close: () => void
 }
 
-export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
+export const UnderstandModal = ({ setter , close }: UnderstandModalProps) => {
   return (
-    <BaseModal useLogo={true}    
-    >
-      <div>
+    <BaseModal useLogo={true} close={close} bottom={0} size={55}>
+      <div className='flex flex-col bottom-0 pt-8 pb-4'>
         <h3 className="font-main text-[18px] font-bold">
           Entenda as tarifas de retirada
         </h3>
@@ -20,7 +20,7 @@ export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
 
         <div className="flex flex-row items-center mb-2">
           <Image
-            src="/images/tariff/no-tariff.svg"
+            src="/images/tariff/none-tariff.svg"
             alt="primeiros passos"
             width={75}
             height={38}
@@ -59,8 +59,8 @@ export const UnderstandModal = ({ setter }: UnderstandModalProps) => {
         </div>
 
         <PrimaryButton
-          handle={() => {}}
-          text='Selecionar filtros'
+          handle={close}
+          text='Entendi'
         />
 
       </div>

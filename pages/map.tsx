@@ -12,6 +12,7 @@ import usePosition from '../src/stores/usePosition'
 import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
 
 import Image from 'next/image'
+import { UnderstandModal } from '../src/components/UnderstandModal/UnderstandModal'
 
 
 const MapPage: NextPage = () => {
@@ -32,6 +33,7 @@ const MapPage: NextPage = () => {
   const [infoModal, setInfoModal] = useState(false)
   const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
+  const [tariffInfoModal, setTariffInfoModal] = useState(false)
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -191,6 +193,15 @@ const MapPage: NextPage = () => {
     return <Loading />
   }
 
+  function openTariffs() {
+    console.log('open tariff')
+    setTariffInfoModal(true)
+  }
+
+  function openOnboarding() {
+    console.log('open onboarding')
+  }
+
   return (
     <>
       <Head>
@@ -227,8 +238,12 @@ const MapPage: NextPage = () => {
           <div className="absolute top-10 z-20 w-[90%] left-5">
             <SearchInput openFilters={() => setOpenFilters(true)} />
             
-            <div className=' mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide'>
-              <button className='flex items-center text-center p-1 rounded-full bg-pearl'>
+            <div className='poiter mt-2 flex justify-center items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide'>
+              <div 
+                onClick={() => openTariffs() }
+                className='flex items-center text-center p-2 rounded-full bg-pearl'
+              >
+              <div className='min-w-[20px] min-h-[20px] items-center flex mr-[4px]'>
                 <Image
                   src="/images/button/dollar.svg"
                   alt="tarifas"
@@ -236,18 +251,26 @@ const MapPage: NextPage = () => {
                   height={20}
                   className='absolute'
                 />
-                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Entenda as tarifas</span>
-              </button>
+                </div>
+                <span className='mt-[2px] font-main font-regular leading-4 text-[16px]'>Entenda as tarifas</span>
+              </div>
 
-              <button className='flex h-8 items-center text-center p-1 rounded-full bg-pearl'>
-                <Image
-                  src="/images/button/info.svg"
-                  alt="tarifas"
-                  width={20}
-                  height={20}
-                />
-                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Como funciona?</span>
-              </button>
+              <div 
+                onClick={() => openOnboarding()}
+                className='flex h-8  pointer items-center text-center p-2 rounded-full bg-pearl'
+              >
+                <div className='min-w-[20px] min-h-[20px] flex items-center mr-[4px] '>
+                  <Image
+                    src="/images/button/info.svg"
+                    alt="tarifas"
+                    width={20}
+                    height={20}
+                    className='min-w-[20px] min-h-[20px]'
+                  />
+                </div>
+                
+                <span className='mt-[2px] font-main font-regular leading-4 text-[16px]'>Como funciona?</span>
+              </div>
             </div>
             
           </div>
@@ -288,6 +311,13 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
+
+          {tariffInfoModal && (
+            <div className="absolute bottom-0 z-40">
+              <UnderstandModal close={() => setTariffInfoModal(false)} />
+            </div>
+          )}
+
           <div className="absolute z-20 bottom-0 w-[100vw]">
             <BottomTabs
               tariff={tariff}
