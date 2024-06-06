@@ -198,8 +198,9 @@ const MapPage: NextPage = () => {
     setTariffInfoModal(true)
   }
 
-  function openOnboarding() {
+  async function openOnboarding() {
     console.log('open onboarding')
+    router.push('/onboarding')
   }
 
   return (

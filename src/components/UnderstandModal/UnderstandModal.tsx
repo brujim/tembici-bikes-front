@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
+import { useRouter } from 'next/router'
 
 type UnderstandModalProps = {
   setter?: () => void
