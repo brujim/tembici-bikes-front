@@ -14,7 +14,6 @@ import { SearchModal } from '../src/components/SearchModal'
 
 import Image from 'next/image'
 
-
 const MapPage: NextPage = () => {
   const router = useRouter()
   const [loadMap, setLoadMap] = useState(false)
@@ -34,7 +33,7 @@ const MapPage: NextPage = () => {
   const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
   const [searchParam, setSearchParam] = useState('')
-  const [openSearchModal, setOpenSearchModal] = useState(true)
+  const [openSearchModal, setOpenSearchModal] = useState(false)
   const [waitingSearchResponse, setWaitingSearchResponse] = useState(false)
   const [searchResponse, setSearchResponse] = useState<any[]>([])
 
@@ -247,27 +246,31 @@ const MapPage: NextPage = () => {
               searchParam={searchParam}
               setter={setSearchParam}
               searchFunction={onSearch}
-            />        
-            <div className=' mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide'>
-              <button className='flex items-center text-center p-1 rounded-full bg-pearl'>
+            />
+            <div className=" mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
+              <button className="flex items-center text-center p-1 rounded-full bg-pearl">
                 <Image
                   src="/images/button/dollar.svg"
                   alt="tarifas"
                   width={20}
                   height={20}
-                  className='absolute'
+                  className="absolute"
                 />
-                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Entenda as tarifas</span>
+                <span className="ml-2 mt-[2px] font-main font-regular text-[16px]">
+                  Entenda as tarifas
+                </span>
               </button>
 
-              <button className='flex h-8 items-center text-center p-1 rounded-full bg-pearl'>
+              <button className="flex h-8 items-center text-center p-1 rounded-full bg-pearl">
                 <Image
                   src="/images/button/info.svg"
                   alt="tarifas"
                   width={20}
                   height={20}
                 />
-                <span className='ml-2 mt-[2px] font-main font-regular text-[16px]'>Como funciona?</span>
+                <span className="ml-2 mt-[2px] font-main font-regular text-[16px]">
+                  Como funciona?
+                </span>
               </button>
             </div>
           </div>
