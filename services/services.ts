@@ -1,7 +1,7 @@
 import api from "./api"
 import schema from './schema'
 
-type StatioRequest = {
+type StationRequest = {
   city?: string
   type: string
   plan: string
@@ -10,7 +10,12 @@ type StatioRequest = {
   tariff: string
 }
 
-export async function getStations({ city, type, plan, periodicity, day, tariff }: StatioRequest) {
+type StationKeyword = {
+  searchParam: string
+}
+
+
+export async function getStations({ city, type, plan, periodicity, day, tariff }: StationRequest) {
 
   const filterParams = city ? {
     city,
@@ -26,7 +31,6 @@ export async function getStations({ city, type, plan, periodicity, day, tariff }
     day,
     tariff
   }
-  console.log(filterParams)
   const method = schema.GET.method
   const url = mountURL({ ...filterParams })
   const headers = {
@@ -43,7 +47,7 @@ export async function getStations({ city, type, plan, periodicity, day, tariff }
 }
 
 
-function mountURL({ city, type, plan, periodicity, day, tariff }: StatioRequest) {
+function mountURL({ city, type, plan, periodicity, day, tariff }: StationRequest) {
 
   let uri = 'stations/1g_uXx2sEpwnhwWBtuD_KAfeqe3fhgwHXtOg5muG7mXM/'
   if (city) {
@@ -54,3 +58,18 @@ function mountURL({ city, type, plan, periodicity, day, tariff }: StatioRequest)
   return uri
 }
 
+
+export async function getStationByKeyword({ searchParam }: StationKeyword) {
+  const method = schema.GET.method
+  const url = `stations/1g_uXx2sEpwnhwWBtuD_KAfeqe3fhgwHXtOg5muG7mXM/Testing/search/${searchParam}`
+  const headers = {
+    'Content-Type': 'application/json',
+  }
+  const options = {
+    method,
+    url,
+    headers
+  }
+  const response = await api.request(options)
+  return response.data
+}

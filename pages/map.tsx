@@ -3,13 +3,14 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import GoogleMapReact from 'google-map-react'
-import { getStations } from '../services/services'
+import { getStationByKeyword, getStations } from '../services/services'
 import { SearchInput } from '../src/components/SearchInput'
 import { BottomTabs } from '../src/components/BottomTabs'
 import { FilterModal } from '../src/components/FilterModal'
 import { Loading } from '../src/components/Loading'
 import usePosition from '../src/stores/usePosition'
 import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
+import { SearchModal } from '../src/components/SearchModal'
 
 const MapPage: NextPage = () => {
   const router = useRouter()
@@ -29,6 +30,10 @@ const MapPage: NextPage = () => {
   const [infoModal, setInfoModal] = useState(false)
   const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
+  const [searchParam, setSearchParam] = useState('')
+  const [openSearchModal, setOpenSearchModal] = useState(true)
+  const [waitingSearchResponse, setWaitingSearchResponse] = useState(false)
+  const [searchResponse, setSearchResponse] = useState<any[]>([])
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -51,9 +56,21 @@ const MapPage: NextPage = () => {
     })
   }
 
-  // function getInfoModal(place: any) {
-  //   setDataInfoModal(place)
-  // }
+  const onSearch = () => {
+    setOpenSearchModal(true)
+    setWaitingSearchResponse(true)
+    getStationByKeyword({ searchParam: searchParam })
+      .then((res) => {
+        setWaitingSearchResponse(false)
+        setSearchResponse(res)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const onSelectStation = (station: any) => {
+    setDataInfoModal(station)
+    setInfoModal(true)
+  }
 
   function verifyFilters() {
     if (geoMode === false) {
@@ -222,10 +239,22 @@ const MapPage: NextPage = () => {
             </div>
           )}
           <div className="absolute top-10 z-20 w-[90%] left-5">
-            <SearchInput openFilters={() => setOpenFilters(true)} />
+            <SearchInput
+              openFilters={() => setOpenFilters(true)}
+              searchParam={searchParam}
+              setter={setSearchParam}
+              searchFunction={onSearch}
+            />
             {/* <button onClick={() => console.log(cordinates)}>CONSOLE</button> */}
           </div>
-
+          {openSearchModal && (
+            <SearchModal
+              stations={searchResponse}
+              closeAction={() => setOpenSearchModal(false)}
+              waitingAction={waitingSearchResponse}
+              onSelectStation={onSelectStation}
+            />
+          )}
           <div className="h-[100vh] w-[100vw]">
             <GoogleMapReact
               bootstrapURLKeys={{
