@@ -194,12 +194,10 @@ const MapPage: NextPage = () => {
   }
 
   function openTariffs() {
-    console.log('open tariff')
     setTariffInfoModal(true)
   }
 
   async function openOnboarding() {
-    console.log('open onboarding')
     router.push('/onboarding')
   }
 
