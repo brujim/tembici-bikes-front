@@ -16,7 +16,7 @@ export const SearchModal = ({
 }: SearchModalProps) => {
   return (
     <div className="h-[100vh] w-[100vw] absolute z-50" onClick={closeAction}>
-      <div className="bg-pearl h-[400px] w-[90%] absolute top-[9rem] left-[1.3rem] rounded-b-2xl shadow-lg flex justify-center items-center">
+      <div className="bg-pearl h-[400px] w-[90%] absolute top-[9rem] left-[1.3rem] rounded-b-2xl shadow-lg flex justify-center items-center overflow-y-scroll">
         {waitingAction ? (
           <div>
             <DotLoader color="#EC7000" />
@@ -27,7 +27,7 @@ export const SearchModal = ({
               return (
                 <div
                   key={index}
-                  className="flex gap-3 items-center font-main font-semibold text-[15px] py-4 border-b-[1px] border-steel/40 px-4 relative overflow-y-scroll"
+                  className="flex gap-3 items-center font-main font-semibold text-[15px] py-4 border-b-[1px] border-steel/40 px-4 relative"
                   onClick={() => onSelectStation(station)}
                 >
                   <Image
