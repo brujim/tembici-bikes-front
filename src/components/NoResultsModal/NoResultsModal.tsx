@@ -12,6 +12,7 @@ export const NoResultsModal = ({ close }: NoResultsModalProps) => {
     <BaseModal 
       useLogo={false}    
       close={close}
+      bottom={0}
     >
 
     <div className="flex flex-col justify-center text-center">
@@ -33,7 +34,7 @@ export const NoResultsModal = ({ close }: NoResultsModalProps) => {
         </p>
 
         <PrimaryButton
-          handle={() => {}}
+          handle={close}
           text='Entendi'
         />
     </div>
