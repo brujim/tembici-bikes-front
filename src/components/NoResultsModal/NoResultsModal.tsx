@@ -3,14 +3,16 @@ import { PrimaryButton } from '../PrimaryButton/PrimaryButton'
 import { BaseModal } from '../BaseModal/BaseModal'
 
 type NoResultsModalProps = {
-  setter: () => void
+  close: () => void
 }
 
-export const NoResultsModal = ({ setter }: NoResultsModalProps) => {
+export const NoResultsModal = ({ close }: NoResultsModalProps) => {
   return (
 
     <BaseModal 
       useLogo={false}    
+      close={close}
+      bottom={0}
     >
 
     <div className="flex flex-col justify-center text-center">
@@ -32,7 +34,7 @@ export const NoResultsModal = ({ setter }: NoResultsModalProps) => {
         </p>
 
         <PrimaryButton
-          handle={() => {}}
+          handle={close}
           text='Entendi'
         />
     </div>

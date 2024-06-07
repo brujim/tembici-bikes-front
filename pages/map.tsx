@@ -13,6 +13,7 @@ import { BikesStationModal } from '../src/components/BikesStationModal/BikesStat
 import { SearchModal } from '../src/components/SearchModal'
 
 import Image from 'next/image'
+import { NoResultsModal } from '../src/components/NoResultsModal/NoResultsModal'
 
 const MapPage: NextPage = () => {
   const router = useRouter()
@@ -38,6 +39,7 @@ const MapPage: NextPage = () => {
   const [searchResponse, setSearchResponse] = useState<any[]>([])
   const [selectedStationBySearch, setSelectedStationBySearch] = useState(false)
   const [selectedStation, setSelectedStation] = useState<any[]>([])
+  const [openNoResultsModal, setOpenNoResultsModal] = useState(false)
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -62,6 +64,12 @@ const MapPage: NextPage = () => {
       .then((res) => {
         setWaitingSearchResponse(false)
         setSearchResponse(res)
+        if (res.length === 0) {
+          setOpenSearchModal(false)
+          setTimeout(() => {
+            setOpenNoResultsModal(true);
+          }, 500);
+        }
       })
       .catch((err) => console.log(err))
   }
@@ -304,6 +312,14 @@ const MapPage: NextPage = () => {
               waitingAction={waitingSearchResponse}
               onSelectStation={onSelectStation}
             />
+          )}
+
+          {openNoResultsModal && (
+            <div className="absolute bottom-0 z-40">
+              <NoResultsModal
+                close={() => setOpenNoResultsModal(false)}
+              />
+            </div>
           )}
           <div className="h-[100vh] w-[100vw]">
             <GoogleMapReact
