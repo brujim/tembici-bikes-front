@@ -9,12 +9,18 @@ export const OnboardingMap = () => {
   return (
     <Reveal>
       <div className="relative w-[100vw] h-[100vh]">
-        <Image src="/images/onboarding/map-mock.png" alt="map" layout="fill" />
-        <div className="absolute top-10 w-[100%] px-5">
-          <SearchInput />
+        <div className="flex md:hidden">
+          <Image
+            src="/images/onboarding/map-mock.png"
+            alt="map"
+            layout="fill"
+          />
         </div>
-        <div className="absolute w-[60px] h-[60px] bottom-28 right-6">
-          <TargetButton />
+        <div className="hidden md:block">
+          <Image src="/images/onboarding/map-lg.png" alt="map" layout="fill" />
+        </div>
+        <div className="absolute top-10 w-[100%] px-5 md:flex md:justify-center">
+          <SearchInput />
         </div>
         <div className="absolute bottom-0 w-[100%]">
           <BottomTabs />

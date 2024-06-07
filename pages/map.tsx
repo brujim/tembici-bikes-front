@@ -36,6 +36,8 @@ const MapPage: NextPage = () => {
   const [openSearchModal, setOpenSearchModal] = useState(false)
   const [waitingSearchResponse, setWaitingSearchResponse] = useState(false)
   const [searchResponse, setSearchResponse] = useState<any[]>([])
+  const [selectedStationBySearch, setSelectedStationBySearch] = useState(false)
+  const [selectedStation, setSelectedStation] = useState<any[]>([])
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -47,21 +49,16 @@ const MapPage: NextPage = () => {
     states: [type, plan, periodicity, day]
   }
 
-  const reloadOptions = {
-    setRedoLoad,
-    setFiltersSelected
-  }
-
   function clearFilters() {
     filterObjectWithCity.setters.map((setter) => {
       setter(null)
     })
   }
 
-  const onSearch = () => {
+  const onSearch = (keyword: string) => {
     setOpenSearchModal(true)
     setWaitingSearchResponse(true)
-    getStationByKeyword({ searchParam: searchParam })
+    getStationByKeyword({ searchParam: keyword })
       .then((res) => {
         setWaitingSearchResponse(false)
         setSearchResponse(res)
@@ -70,6 +67,16 @@ const MapPage: NextPage = () => {
   }
 
   const onSelectStation = (station: any) => {
+    setLoadMap(true)
+    setSelectedStationBySearch(true)
+    setSelectedStation(station)
+    setPosition({
+      latitude: station.lat,
+      longitude: station.lng
+    })
+    setTimeout(() => {
+      setLoadMap(false)
+    }, 2000)
     setDataInfoModal(station)
     setInfoModal(true)
   }
@@ -178,29 +185,45 @@ const MapPage: NextPage = () => {
   }, [filtersSelected, tariff, redoLoad])
 
   const markers = (map: any, maps: any, places: any) => {
-    console.log(maps)
-    const markers: any = []
-    const infowindows: any = []
-    places.forEach((place: any, i: number) => {
+    if (places.length > 1) {
+      const markers: any = []
+      places.forEach((place: any, i: number) => {
+        const marker = new maps.Marker({
+          position: {
+            lat: parseFloat(place.lat),
+            lng: parseFloat(place.lng)
+          },
+          map,
+          icon: {
+            url: `/images/tariff/${place.tariff}.svg`,
+            scaledSize: new maps.Size(50, 50)
+          }
+        })
+
+        marker.addListener('click', () => {
+          setInfoModal(true)
+          setDataInfoModal(place)
+        })
+
+        markers.push(marker)
+      })
+    } else {
       const marker = new maps.Marker({
         position: {
-          lat: parseFloat(place.lat),
-          lng: parseFloat(place.lng)
+          lat: parseFloat(places.lat),
+          lng: parseFloat(places.lng)
         },
         map,
         icon: {
-          url: `/images/tariff/${place.tariff}.svg`,
+          url: `/images/tariff/${places.tariff}.svg`,
           scaledSize: new maps.Size(50, 50)
         }
       })
-
       marker.addListener('click', () => {
         setInfoModal(true)
-        setDataInfoModal(place)
+        setDataInfoModal(places)
       })
-
-      markers.push(marker)
-    })
+    }
   }
 
   if (loadMap) {
@@ -240,7 +263,7 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
-          <div className="absolute top-10 z-20 w-[90%] left-5">
+          <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
               openFilters={() => setOpenFilters(true)}
               searchParam={searchParam}
@@ -248,7 +271,7 @@ const MapPage: NextPage = () => {
               searchFunction={onSearch}
             />
             <div className=" mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
-              <button className="flex items-center text-center p-1 rounded-full bg-pearl">
+              <button className="flex items-center text-center p-1 rounded-full bg-pearl px-3">
                 <Image
                   src="/images/button/dollar.svg"
                   alt="tarifas"
@@ -256,19 +279,19 @@ const MapPage: NextPage = () => {
                   height={20}
                   className="absolute"
                 />
-                <span className="ml-2 mt-[2px] font-main font-regular text-[16px]">
+                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
                   Entenda as tarifas
                 </span>
               </button>
 
-              <button className="flex h-8 items-center text-center p-1 rounded-full bg-pearl">
+              <button className="flex h-8 items-center text-center p-1 rounded-full bg-pearl px-3">
                 <Image
                   src="/images/button/info.svg"
                   alt="tarifas"
                   width={20}
                   height={20}
                 />
-                <span className="ml-2 mt-[2px] font-main font-regular text-[16px]">
+                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
                   Como funciona?
                 </span>
               </button>
@@ -297,6 +320,10 @@ const MapPage: NextPage = () => {
                 if (filtersSelected && !loadMap && stations) {
                   markers(map, maps, stations)
                   setFiltersSelected(false)
+                }
+                if (selectedStationBySearch && !loadMap) {
+                  markers(map, maps, selectedStation)
+                  setSelectedStationBySearch(false)
                 }
               }}
             />

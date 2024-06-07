@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 export const TipModal = () => {
   const router = useRouter()
   return (
-    <div className="bg-iron/70 w-[100vw] h-[100vh]">
+    <div className="bg-iron/70 w-[100vw] h-[100vh] md:hidden">
       <div className="absolute top-[5.5rem] right-7 bg-pearl w-[55px] h-[55px] rounded-md flex items-center justify-center">
         <Image
           src="/images/search/filter.svg"
@@ -13,7 +13,7 @@ export const TipModal = () => {
           height={40}
         />
       </div>
-      <div className="absolute top-36 right-9">
+      <div className="absolute top-36 right-9 ">
         <Image
           src="/images/onboarding/poligono.svg"
           width={43}
@@ -21,7 +21,7 @@ export const TipModal = () => {
           alt="poligono"
         />
       </div>
-      <div className="w-[90%] h-[230px] rounded-xl bg-pearl absolute top-44 right-5 px-10 py-6">
+      <div className="w-[90%] h-[230px] rounded-xl bg-pearl absolute top-44 right-5 px-10 py-6 max-w-[400px]  md:hidden">
         <h3 className="font-main text-[20px] font-bold">
           Selecione os filtros
         </h3>
