@@ -3,17 +3,17 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import GoogleMapReact from 'google-map-react'
-import { getStations } from '../services/services'
+import { getStationByKeyword, getStations } from '../services/services'
 import { SearchInput } from '../src/components/SearchInput'
 import { BottomTabs } from '../src/components/BottomTabs'
 import { FilterModal } from '../src/components/FilterModal'
 import { Loading } from '../src/components/Loading'
 import usePosition from '../src/stores/usePosition'
 import { BikesStationModal } from '../src/components/BikesStationModal/BikesStationModal'
+import { SearchModal } from '../src/components/SearchModal'
 
 import Image from 'next/image'
 import { UnderstandModal } from '../src/components/UnderstandModal/UnderstandModal'
-
 
 const MapPage: NextPage = () => {
   const router = useRouter()
@@ -34,6 +34,12 @@ const MapPage: NextPage = () => {
   const [dataInfoModal, setDataInfoModal] = useState<any>()
   const { latitude, longitude, setPosition } = usePosition()
   const [tariffInfoModal, setTariffInfoModal] = useState(false)
+  const [searchParam, setSearchParam] = useState('')
+  const [openSearchModal, setOpenSearchModal] = useState(false)
+  const [waitingSearchResponse, setWaitingSearchResponse] = useState(false)
+  const [searchResponse, setSearchResponse] = useState<any[]>([])
+  const [selectedStationBySearch, setSelectedStationBySearch] = useState(false)
+  const [selectedStation, setSelectedStation] = useState<any[]>([])
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -45,20 +51,37 @@ const MapPage: NextPage = () => {
     states: [type, plan, periodicity, day]
   }
 
-  const reloadOptions = {
-    setRedoLoad,
-    setFiltersSelected
-  }
-
   function clearFilters() {
     filterObjectWithCity.setters.map((setter) => {
       setter(null)
     })
   }
 
-  // function getInfoModal(place: any) {
-  //   setDataInfoModal(place)
-  // }
+  const onSearch = (keyword: string) => {
+    setOpenSearchModal(true)
+    setWaitingSearchResponse(true)
+    getStationByKeyword({ searchParam: keyword })
+      .then((res) => {
+        setWaitingSearchResponse(false)
+        setSearchResponse(res)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  const onSelectStation = (station: any) => {
+    setLoadMap(true)
+    setSelectedStationBySearch(true)
+    setSelectedStation(station)
+    setPosition({
+      latitude: station.lat,
+      longitude: station.lng
+    })
+    setTimeout(() => {
+      setLoadMap(false)
+    }, 2000)
+    setDataInfoModal(station)
+    setInfoModal(true)
+  }
 
   function verifyFilters() {
     if (geoMode === false) {
@@ -164,29 +187,45 @@ const MapPage: NextPage = () => {
   }, [filtersSelected, tariff, redoLoad])
 
   const markers = (map: any, maps: any, places: any) => {
-    console.log(maps)
-    const markers: any = []
-    const infowindows: any = []
-    places.forEach((place: any, i: number) => {
+    if (places.length > 1) {
+      const markers: any = []
+      places.forEach((place: any, i: number) => {
+        const marker = new maps.Marker({
+          position: {
+            lat: parseFloat(place.lat),
+            lng: parseFloat(place.lng)
+          },
+          map,
+          icon: {
+            url: `/images/tariff/${place.tariff}.svg`,
+            scaledSize: new maps.Size(50, 50)
+          }
+        })
+
+        marker.addListener('click', () => {
+          setInfoModal(true)
+          setDataInfoModal(place)
+        })
+
+        markers.push(marker)
+      })
+    } else {
       const marker = new maps.Marker({
         position: {
-          lat: parseFloat(place.lat),
-          lng: parseFloat(place.lng)
+          lat: parseFloat(places.lat),
+          lng: parseFloat(places.lng)
         },
         map,
         icon: {
-          url: `/images/tariff/${place.tariff}.svg`,
+          url: `/images/tariff/${places.tariff}.svg`,
           scaledSize: new maps.Size(50, 50)
         }
       })
-
       marker.addListener('click', () => {
         setInfoModal(true)
-        setDataInfoModal(place)
+        setDataInfoModal(places)
       })
-
-      markers.push(marker)
-    })
+    }
   }
 
   if (loadMap) {
@@ -243,12 +282,21 @@ const MapPage: NextPage = () => {
                 className='flex items-center text-center p-2 rounded-full bg-pearl'
               >
               <div className='min-w-[20px] min-h-[20px] items-center flex mr-[4px]'>
+          <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
+            <SearchInput
+              openFilters={() => setOpenFilters(true)}
+              searchParam={searchParam}
+              setter={setSearchParam}
+              searchFunction={onSearch}
+            />
+            <div className=" mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
+              <button className="flex items-center text-center p-1 rounded-full bg-pearl px-3">
                 <Image
                   src="/images/button/dollar.svg"
                   alt="tarifas"
                   width={20}
                   height={20}
-                  className='absolute'
+                  className="absolute"
                 />
                 </div>
                 <span className='mt-[2px] font-main font-regular leading-4 text-[16px]'>Entenda as tarifas</span>
@@ -270,10 +318,32 @@ const MapPage: NextPage = () => {
                 
                 <span className='mt-[2px] font-main font-regular leading-4 text-[16px]'>Como funciona?</span>
               </div>
-            </div>
-            
-          </div>
+                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
+                  Entenda as tarifas
+                </span>
+              </button>
 
+              <button className="flex h-8 items-center text-center p-1 rounded-full bg-pearl px-3">
+                <Image
+                  src="/images/button/info.svg"
+                  alt="tarifas"
+                  width={20}
+                  height={20}
+                />
+                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
+                  Como funciona?
+                </span>
+              </button>
+            </div>
+          </div>
+          {openSearchModal && (
+            <SearchModal
+              stations={searchResponse}
+              closeAction={() => setOpenSearchModal(false)}
+              waitingAction={waitingSearchResponse}
+              onSelectStation={onSelectStation}
+            />
+          )}
           <div className="h-[100vh] w-[100vw]">
             <GoogleMapReact
               bootstrapURLKeys={{
@@ -289,6 +359,10 @@ const MapPage: NextPage = () => {
                 if (filtersSelected && !loadMap && stations) {
                   markers(map, maps, stations)
                   setFiltersSelected(false)
+                }
+                if (selectedStationBySearch && !loadMap) {
+                  markers(map, maps, selectedStation)
+                  setSelectedStationBySearch(false)
                 }
               }}
             />

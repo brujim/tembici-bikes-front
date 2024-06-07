@@ -118,7 +118,7 @@ export const FilterModal = ({
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
           </div>
-          <h3 className="font-main font-semibold text-[18px] px-4 mt-4 py-2">
+          <h3 className="font-main font-semibold text-[18px] px-4 mt-4 py-2 md:text-center">
             Selecione abaixo os filtros para encontrar a estação ideal para
             você:
           </h3>
@@ -158,7 +158,7 @@ export const FilterModal = ({
             </form>
           )}
 
-          <div className="flex justify-between items-center px-10 border-t-[1px] border-steel py-10 mt-4">
+          <div className="flex justify-between items-center px-5 border-t-[1px] border-steel py-10 mt-4 md:justify-center md:gap-10">
             <p
               className="font-main text-cooper font-semibold"
               onClick={() => {
@@ -169,7 +169,7 @@ export const FilterModal = ({
               Limpar filtros
             </p>
             <button
-              className={`px-5 py-4 rounded-full text-pearl font-main ${canContinue ? 'bg-cooper' : 'bg-steel'}`}
+              className={`px-4 py-4 rounded-full text-pearl font-main ${canContinue ? 'bg-cooper' : 'bg-steel'}`}
               onClick={() => {
                 if (canContinue) {
                   sendFilters(true)
