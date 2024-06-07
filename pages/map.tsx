@@ -13,6 +13,7 @@ import { BikesStationModal } from '../src/components/BikesStationModal/BikesStat
 import { SearchModal } from '../src/components/SearchModal'
 
 import Image from 'next/image'
+import { UnderstandModal } from '../src/components/UnderstandModal/UnderstandModal'
 
 const MapPage: NextPage = () => {
   const router = useRouter()
@@ -38,6 +39,7 @@ const MapPage: NextPage = () => {
   const [searchResponse, setSearchResponse] = useState<any[]>([])
   const [selectedStationBySearch, setSelectedStationBySearch] = useState(false)
   const [selectedStation, setSelectedStation] = useState<any[]>([])
+  const [tariffInfoModal, setTariffInfoModal] = useState(false)
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -230,6 +232,14 @@ const MapPage: NextPage = () => {
     return <Loading />
   }
 
+  function openTariffs() {
+    setTariffInfoModal(true)
+  }
+
+  async function openOnboarding() {
+    router.push('/onboarding')
+  }
+
   return (
     <>
       <Head>
@@ -263,38 +273,48 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
-          <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
+          <div
+            className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
               openFilters={() => setOpenFilters(true)}
               searchParam={searchParam}
               setter={setSearchParam}
               searchFunction={onSearch}
             />
-            <div className=" mt-2 flex items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
-              <button className="flex items-center text-center p-1 rounded-full bg-pearl px-3">
-                <Image
-                  src="/images/button/dollar.svg"
-                  alt="tarifas"
-                  width={20}
-                  height={20}
-                  className="absolute"
-                />
-                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
-                  Entenda as tarifas
-                </span>
-              </button>
+            <div
+              className="poiter mt-2 flex justify-center items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
+              <div
+                onClick={() => openTariffs()}
+                className="flex items-center text-center p-1 rounded-full bg-pearl"
+              >
+                <div className="min-w-[20px] min-h-[20px] items-center flex mr-[4px]">
+                  <Image
+                    src="/images/button/dollar.svg"
+                    alt="tarifas"
+                    width={20}
+                    height={20}
+                    className="absolute"
+                  />
+                </div>
+                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">Entenda as tarifas</span>
+              </div>
 
-              <button className="flex h-8 items-center text-center p-1 rounded-full bg-pearl px-3">
-                <Image
-                  src="/images/button/info.svg"
-                  alt="tarifas"
-                  width={20}
-                  height={20}
-                />
-                <span className="ml-2 mt-[2px] font-main font-regular text-[14px]">
-                  Como funciona?
-                </span>
-              </button>
+              <div
+                onClick={() => openOnboarding()}
+                className="flex h-8  pointer items-center text-center p-1 rounded-full bg-pearl"
+              >
+                <div className="min-w-[20px] min-h-[20px] flex items-center mr-[4px] ">
+                  <Image
+                    src="/images/button/info.svg"
+                    alt="tarifas"
+                    width={20}
+                    height={20}
+                    className="min-w-[20px] min-h-[20px]"
+                  />
+                </div>
+
+                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">Como funciona?</span>
+              </div>
             </div>
           </div>
           {openSearchModal && (
@@ -345,6 +365,13 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
+
+          {tariffInfoModal && (
+            <div className="absolute bottom-0 z-40">
+              <UnderstandModal close={() => setTariffInfoModal(false)} />
+            </div>
+          )}
+
           <div className="absolute z-20 bottom-0 w-[100vw]">
             <BottomTabs
               tariff={tariff}
