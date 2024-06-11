@@ -163,6 +163,8 @@ const MapPage: NextPage = () => {
     if (filtersSelected && redoLoad) {
       setLoadMap(true)
       const filters = {
+        lat: latitude,
+        lng: longitude,
         tariff: tariff,
         city: city ?? '',
         type: type ?? '',

@@ -8,6 +8,8 @@ type StationRequest = {
   periodicity: string
   day: string
   tariff: string
+  lat?: number
+  lng?: number
 }
 
 type StationKeyword = {
@@ -15,7 +17,7 @@ type StationKeyword = {
 }
 
 
-export async function getStations({ city, type, plan, periodicity, day, tariff }: StationRequest) {
+export async function getStations({ city, type, plan, periodicity, day, tariff, lat, lng }: StationRequest) {
 
   const filterParams = city ? {
     city,
@@ -29,7 +31,9 @@ export async function getStations({ city, type, plan, periodicity, day, tariff }
     plan,
     periodicity,
     day,
-    tariff
+    tariff,
+    lat,
+    lng
   }
   const method = schema.GET.method
   const url = mountURL({ ...filterParams })
@@ -47,13 +51,13 @@ export async function getStations({ city, type, plan, periodicity, day, tariff }
 }
 
 
-function mountURL({ city, type, plan, periodicity, day, tariff }: StationRequest) {
+function mountURL({ city, type, plan, periodicity, day, tariff, lat, lng }: StationRequest) {
 
   let uri = 'stations/1g_uXx2sEpwnhwWBtuD_KAfeqe3fhgwHXtOg5muG7mXM/'
   if (city) {
     uri = uri + city + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
   } else {
-    uri = uri + 'São Paulo' + '?tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
+    uri = uri + 'Testing' + '?lat=' + lat + '&lng=' + lng + '&tariff=' + tariff + '&type=' + type + '&plan=' + plan + '&time=' + periodicity + '&dayOfWeek=' + day
   }
   return uri
 }

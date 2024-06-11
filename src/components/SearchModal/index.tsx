@@ -36,7 +36,12 @@ export const SearchModal = ({
                     width={35}
                     height={35}
                   />
-                  <p>{station.title}</p>
+                  <div>
+                    <p>{station.title}</p>
+                    <p className="text-[12px] font-normal">
+                      {station.address.slice(0, 36)}...
+                    </p>
+                  </div>
                   <div className="flex items-center absolute right-3">
                     <Image
                       alt="arrow"
