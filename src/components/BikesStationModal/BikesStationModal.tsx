@@ -38,7 +38,7 @@ export const BikesStationModal = ({
 
   return (
     <Reveal>
-      <BaseModal useLogo={true} size={70} bottom={0} close={close}>
+      <BaseModal useLogo={true} size={85} bottom={0} close={close}>
         <div className="flex flex-col justify-center mt-6">
           <h3 className="font-main text-[20px] leading-6 font-semibold text-ironwhite	">
             {bikeStation.title}

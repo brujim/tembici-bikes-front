@@ -69,8 +69,8 @@ const MapPage: NextPage = () => {
         if (res.length === 0) {
           setOpenSearchModal(false)
           setTimeout(() => {
-            setOpenNoResultsModal(true);
-          }, 500);
+            setOpenNoResultsModal(true)
+          }, 500)
         }
       })
       .catch((err) => console.log(err))
@@ -225,6 +225,7 @@ const MapPage: NextPage = () => {
           lat: parseFloat(places.lat),
           lng: parseFloat(places.lng)
         },
+        gestureHandling: 'none',
         map,
         icon: {
           url: `/images/tariff/${places.tariff}.svg`,
@@ -284,16 +285,14 @@ const MapPage: NextPage = () => {
             </div>
           )}
 
-          <div
-            className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
+          <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
               openFilters={() => setOpenFilters(true)}
               searchParam={searchParam}
               setter={setSearchParam}
               searchFunction={onSearch}
             />
-            <div
-              className="poiter mt-2 flex justify-center items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
+            <div className="poiter mt-2 flex justify-center items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
               <div
                 onClick={() => openTariffs()}
                 className="flex items-center text-center p-1 rounded-full bg-pearl"
@@ -307,7 +306,9 @@ const MapPage: NextPage = () => {
                     className="absolute"
                   />
                 </div>
-                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">Entenda as tarifas</span>
+                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">
+                  Entenda as tarifas
+                </span>
               </div>
 
               <div
@@ -324,7 +325,9 @@ const MapPage: NextPage = () => {
                   />
                 </div>
 
-                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">Como funciona?</span>
+                <span className="mt-[2px] font-main font-regular leading-4 text-[14px]">
+                  Como funciona?
+                </span>
               </div>
             </div>
           </div>
@@ -340,9 +343,7 @@ const MapPage: NextPage = () => {
 
           {openNoResultsModal && (
             <div className="absolute bottom-0 z-40">
-              <NoResultsModal
-                close={() => setOpenNoResultsModal(false)}
-              />
+              <NoResultsModal close={() => setOpenNoResultsModal(false)} />
             </div>
           )}
           <div className="h-[100vh] w-[100vw]">

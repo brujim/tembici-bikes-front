@@ -17,9 +17,11 @@ export const ModalSection = ({
   states
 }: ModalSectionProps) => {
   return (
-    <div className="border-t-[1px] border-t-steel font-main font-semibold px-4 mt-4 py-4 flex flex-col gap-4 md:items-center">
-      <p>{answer}</p>
-      <div className="flex gap-4 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
+    <div className="border-t-[1px] border-t-steel font-main font-semibold mt-4 py-4 flex flex-col gap-4 md:items-center">
+      <p className="px-4">{answer}</p>
+      <div
+        className={`flex gap-4 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide ${options.length === 2 && 'justify-center'}`}
+      >
         {options.map((option, index) => {
           return (
             <span

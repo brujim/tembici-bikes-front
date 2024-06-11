@@ -8,10 +8,10 @@ type UnderstandModalProps = {
   close: () => void
 }
 
-export const UnderstandModal = ({ setter , close }: UnderstandModalProps) => {
+export const UnderstandModal = ({ setter, close }: UnderstandModalProps) => {
   return (
-    <BaseModal useLogo={true} close={close} bottom={0} size={55}>
-      <div className='flex flex-col bottom-0 pt-8 pb-4'>
+    <BaseModal useLogo={true} close={close} bottom={0} size={65}>
+      <div className="flex flex-col bottom-0 pt-8 pb-4">
         <h3 className="font-main text-[18px] font-bold">
           Entenda as tarifas de retirada
         </h3>
@@ -59,13 +59,8 @@ export const UnderstandModal = ({ setter , close }: UnderstandModalProps) => {
           <p className=""> Tarifa alta</p>
         </div>
 
-        <PrimaryButton
-          handle={close}
-          text='Entendi'
-        />
-
+        <PrimaryButton handle={close} text="Entendi" />
       </div>
-
     </BaseModal>
   )
 }

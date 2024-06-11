@@ -32,6 +32,25 @@ export const FilterModal = ({
   const { latitude, longitude, setPosition } = usePosition()
   const hasPosition = localStorage.getItem('getgeo') === 'true' ? true : false
 
+  useEffect(() => {
+    if (!hasPosition) {
+      switch (latitude) {
+        case -23.550164466:
+          settersWithCity[0]('São Paulo')
+          break
+        case -22.908333:
+          settersWithCity[0]('Rio de Janeiro')
+          break
+        case -25.441105:
+          settersWithCity[0]('Curitiba')
+          break
+        case -12.974722:
+          settersWithCity[0]('Salvador')
+          break
+      }
+    }
+  }, [])
+
   function setMapCenter(city: string | null) {
     switch (city) {
       case 'Rio de Janeiro':
@@ -113,7 +132,7 @@ export const FilterModal = ({
             </div>
           </div>
         )}
-        <div className="bg-pearl h-[90vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
+        <div className="bg-pearl h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
           <div className="flex justify-between items-center pt-5 px-4">
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
