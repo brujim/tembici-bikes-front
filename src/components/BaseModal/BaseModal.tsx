@@ -2,11 +2,11 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 type BaseModalProps = {
-  children: JSX.Element
-  useLogo: boolean
+  children?: JSX.Element
+  useLogo?: boolean
   size?: number // percentage
   bottom?: number
-  close: () => void
+  close?: () => void
 }
 
 export const BaseModal = ({
