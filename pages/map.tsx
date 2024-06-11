@@ -134,6 +134,12 @@ const MapPage: NextPage = () => {
     }
   }
 
+  function openTariffInfoModal() {
+    console.log('close modal')
+    setInfoModal(false)
+    setTariffInfoModal(true)
+  }
+
   useEffect(() => {
     if (firstMapLoad) {
       setLoadMap(true)
@@ -383,6 +389,7 @@ const MapPage: NextPage = () => {
                   tariff: dataInfoModal.tariff
                 }}
                 close={() => setInfoModal(false)}
+                openTariffInfoModal={() => openTariffInfoModal()}
               />
             </div>
           )}

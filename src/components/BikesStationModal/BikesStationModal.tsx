@@ -9,6 +9,7 @@ const Base = require('react-reveal/Zoom')
 type BikesStationModalProps = {
   bikeStation: BikeStationProps
   close: () => void
+  openTariffInfoModal: () => void
 }
 
 type BikeStationProps = {
@@ -24,7 +25,8 @@ type BikeStationProps = {
 
 export const BikesStationModal = ({
   bikeStation,
-  close
+  close,
+  openTariffInfoModal
 }: BikesStationModalProps) => {
   const [toast, setToast] = useState(false)
 
@@ -85,6 +87,7 @@ export const BikesStationModal = ({
             mech={bikeStation.mech}
             electric={bikeStation.electric}
             tariff={bikeStation.tariff}
+            openTariffInfo={() => openTariffInfoModal()}
           />
 
           <div className="flex flex-col mb-3">
@@ -105,6 +108,7 @@ export const BikesStationModal = ({
             mech={bikeStation.mech}
             electric={bikeStation.electric}
             tariff={bikeStation.tariff}
+            openTariffInfo={() => openTariffInfoModal()}
           />
 
           <PrimaryButton handle={close} text="Entendi" />

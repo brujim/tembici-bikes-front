@@ -1,18 +1,22 @@
 import Image from 'next/image'
+import { UnderstandModal } from '../../UnderstandModal/UnderstandModal'
 
 type PriceProps = {
   type: 'mech' | 'electric'
   mech: number
   electric: number
   tariff: string
+  openTariffInfo: () => void
 }
 
 export const BikeStationPrice = ({
   type,
   mech,
   electric,
-  tariff
+  tariff,
+  openTariffInfo
 }: PriceProps) => {
+
   function serializeTitle() {
     if (type == 'electric') {
       return 'Retirada de Bike elétrica'
@@ -95,7 +99,7 @@ export const BikeStationPrice = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col" onClick={() => openTariffInfo()}>
           <Image
             src={`/images/tariff/${calculateTariff()}-tariff.svg`}
             alt="bike eletrica"
@@ -103,7 +107,9 @@ export const BikeStationPrice = ({
             height={32}
           />
         </div>
+        
       </div>
+      
     </div>
   )
 }
