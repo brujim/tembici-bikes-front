@@ -135,7 +135,6 @@ const MapPage: NextPage = () => {
   }
 
   function openTariffInfoModal() {
-    console.log('close modal')
     setInfoModal(false)
     setTariffInfoModal(true)
   }
