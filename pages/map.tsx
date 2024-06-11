@@ -265,6 +265,7 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
+
           <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
               openFilters={() => setOpenFilters(true)}
@@ -299,6 +300,7 @@ const MapPage: NextPage = () => {
               </button>
             </div>
           </div>
+
           {openSearchModal && (
             <SearchModal
               stations={searchResponse}

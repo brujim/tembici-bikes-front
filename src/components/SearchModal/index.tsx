@@ -16,7 +16,7 @@ export const SearchModal = ({
 }: SearchModalProps) => {
   return (
     <div className="h-[100vh] w-[100vw] absolute z-50" onClick={closeAction}>
-      <div className="bg-pearl h-[400px] w-[90%] absolute top-[9rem] left-[1.3rem] rounded-b-2xl shadow-lg flex justify-center items-center overflow-y-scroll">
+      <div className="bg-pearl h-[400px] w-[90%] max-w-[600px] absolute top-[9rem] left-[1.3rem] rounded-b-2xl shadow-lg flex justify-center items-center overflow-y-scroll">
         {waitingAction ? (
           <div>
             <DotLoader color="#EC7000" />
