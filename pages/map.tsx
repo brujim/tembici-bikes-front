@@ -173,6 +173,8 @@ const MapPage: NextPage = () => {
     if (filtersSelected && redoLoad) {
       setLoadMap(true)
       const filters = {
+        lat: latitude,
+        lng: longitude,
         tariff: tariff,
         city: city ?? '',
         type: type ?? '',
@@ -281,6 +283,7 @@ const MapPage: NextPage = () => {
               />
             </div>
           )}
+
           <div
             className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
@@ -325,6 +328,7 @@ const MapPage: NextPage = () => {
               </div>
             </div>
           </div>
+
           {openSearchModal && (
             <SearchModal
               stations={searchResponse}
