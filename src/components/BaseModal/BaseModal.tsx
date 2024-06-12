@@ -24,7 +24,7 @@ export const BaseModal = ({
         <div
           className={`w-[100%] bg-pearl absolute px-6 py-6 overflow-y-scroll`}
           style={{
-            height: size + '%',
+            minHeight: size + '%',
             bottom: bottom + '%'
           }}
         >

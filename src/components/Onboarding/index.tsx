@@ -60,7 +60,7 @@ export const Onboarding = () => {
           )}
 
           {step === 2 && (
-            <div className={`flex flex-col justify-between items-center`}>
+            <div className={`flex flex-col justify-between items-center mb-[10px]`}>
               <div className="px-10 absolute bottom-[70%]">
                 <Reveal>
                   <p className="text-[24px] font-bold text-iron pb-2">
