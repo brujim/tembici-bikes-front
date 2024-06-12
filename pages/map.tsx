@@ -300,7 +300,7 @@ const MapPage: NextPage = () => {
             <div className="poiter mt-2 flex justify-center items-center text-center gap-5 overflow-x-scroll overflow-ellipsis whitespace-nowrap scrollbar-hide">
               <div
                 onClick={() => openTariffs()}
-                className="flex items-center text-center p-1 rounded-full bg-pearl"
+                className="flex items-center text-center p-2 rounded-full bg-pearl"
               >
                 <div className="min-w-[20px] min-h-[20px] items-center flex mr-[4px]">
                   <Image
@@ -318,7 +318,7 @@ const MapPage: NextPage = () => {
 
               <div
                 onClick={() => openOnboarding()}
-                className="flex h-8  pointer items-center text-center p-1 rounded-full bg-pearl"
+                className="flex h-8  pointer items-center text-center p-2 rounded-full bg-pearl"
               >
                 <div className="min-w-[20px] min-h-[20px] flex items-center mr-[4px] ">
                   <Image
