@@ -46,7 +46,7 @@ export const Onboarding = () => {
                   </p>
                 </Reveal>
               </div>
-              <div className="absolute bottom-20">
+              <div className="absolute bottom-20 max-w-[70%]">
                 <Reveal>
                   <Image
                     src="/images/onboarding/step01.png"
@@ -60,7 +60,7 @@ export const Onboarding = () => {
           )}
 
           {step === 2 && (
-            <div className={`flex flex-col justify-between items-center mb-[10px]`}>
+            <div className={`flex flex-col justify-between items-center`}>
               <div className="px-10 absolute bottom-[70%]">
                 <Reveal>
                   <p className="text-[24px] font-bold text-iron pb-2">
@@ -72,7 +72,7 @@ export const Onboarding = () => {
                   </p>
                 </Reveal>
               </div>
-              <div className="absolute bottom-20">
+              <div className="absolute bottom-20 max-w-[70%]">
                 <Reveal>
                   <Image
                     src="/images/onboarding/step02.png"
@@ -97,7 +97,7 @@ export const Onboarding = () => {
                   </p>
                 </Reveal>
               </div>
-              <div className="absolute bottom-20">
+              <div className="absolute bottom-20 max-w-[70%]">
                 <Reveal>
                   <Image
                     src="/images/onboarding/step03.png"
@@ -121,7 +121,7 @@ export const Onboarding = () => {
                   </p>
                 </Reveal>
               </div>
-              <div className="absolute bottom-20">
+              <div className="absolute bottom-20 max-w-[70%]">
                 <Reveal>
                   <Image
                     src="/images/onboarding/step04.png"
