@@ -31,7 +31,7 @@ export const BottomTabs = ({
   return (
     <>
       {iosAgent ? (
-        <div className="bg-pearl w-[100%] h-[208px] flex justify-between">
+        <div className="bg-pearl w-[100%] h-[15%] flex justify-between">
           <div
             className={`w-[50%] flex justify-center pt-4  ${tariff === 'none' && 'border-t-4 border-sapphire'}`}
             onClick={() => {

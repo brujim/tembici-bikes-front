@@ -12,7 +12,7 @@ export const OnboardingWithoutPosition = () => {
   return (
     <>
       {!nextStep ? (
-        <div className="flex flex-col pt-32 font-main px-8 justify-between h-[100vh] pb-10">
+        <div className="flex flex-col pt-28 font-main px-8 justify-between h-[100vh] pb-10">
           <div className="flex flex-col gap-2">
             <h3 className="text-[24px] font-semibold text-iron">
               Onde você vai pedalar?
