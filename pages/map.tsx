@@ -42,6 +42,7 @@ const MapPage: NextPage = () => {
   const [selectedStation, setSelectedStation] = useState<any[]>([])
   const [tariffInfoModal, setTariffInfoModal] = useState(false)
   const [openNoResultsModal, setOpenNoResultsModal] = useState(false)
+  const [iosAgent, setIosAgent] = useState(false) 
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -200,6 +201,21 @@ const MapPage: NextPage = () => {
         })
     }
   }, [filtersSelected, tariff, redoLoad])
+
+  useEffect(() => {
+    if (typeof navigator !== 'undefined') {
+      const userAgent = navigator.userAgent
+      const iOS = !!userAgent.match(/iPhone|iPad|iPod/)
+      const isAndroid = /android/i.test(userAgent)
+      if (isAndroid) {
+        return
+      } else if (iOS) {
+        setIosAgent(true)
+      } else {
+        return
+      }
+    }
+  }, [])
 
   const markers = (map: any, maps: any, places: any) => {
     if (places.length > 1) {
@@ -399,7 +415,11 @@ const MapPage: NextPage = () => {
             </div>
           )}
 
-          <div className="absolute z-20 bottom-0 w-[100vw]">
+          <div className="absolute z-20 bottom-0 w-[100vw]"
+            style={{
+              height: iosAgent ? "18vh" : ""
+            }}
+          >
             <BottomTabs
               tariff={tariff}
               setter={setTariff}
