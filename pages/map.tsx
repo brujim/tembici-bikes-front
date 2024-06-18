@@ -272,6 +272,10 @@ const MapPage: NextPage = () => {
     router.push('/onboarding')
   }
 
+  const options = {
+    gestureHandling: 'greedy' // Permite mover o mapa com um único dedo
+  };
+  
   return (
     <>
       <Head>
@@ -388,6 +392,7 @@ const MapPage: NextPage = () => {
                   setSelectedStationBySearch(false)
                 }
               }}
+              options={options}
             />
           </div>
           {infoModal && (
