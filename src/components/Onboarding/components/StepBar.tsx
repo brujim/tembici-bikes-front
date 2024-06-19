@@ -32,7 +32,7 @@ export const StepBar = ({
   return (
     <>
       {iosAgent ? (
-        <div className="w-[100vw] h-[188px] bg-pearl shadow-top flex items-center justify-between px-10">
+        <div className="w-[100vw] py-4 bg-pearl shadow-top flex items-center justify-between px-10">
           <div className="flex gap-4">
             <div
               className={`w-[12px] h-[12px] rounded-full ${activeStep === 1 ? 'bg-cooper' : 'bg-silver'}`}

@@ -275,7 +275,7 @@ const MapPage: NextPage = () => {
   const options = {
     gestureHandling: 'greedy' // Permite mover o mapa com um único dedo
   };
-  
+
   return (
     <>
       <Head>
@@ -420,11 +420,7 @@ const MapPage: NextPage = () => {
             </div>
           )}
 
-          <div className="absolute z-20 bottom-0 w-[100vw]"
-            style={{
-              height: iosAgent ? "18vh" : ""
-            }}
-          >
+          <div className="absolute z-20 bottom-0 w-[100vw]">
             <BottomTabs
               tariff={tariff}
               setter={setTariff}
