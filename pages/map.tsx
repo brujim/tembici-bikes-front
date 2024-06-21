@@ -45,6 +45,8 @@ const MapPage: NextPage = () => {
   const [openNoResultsModal, setOpenNoResultsModal] = useState(false)
   const [iosAgent, setIosAgent] = useState(false) 
 
+  const [mapDimensions, setMapDimensions] = useState({ width: '100%', height: '100vh' });
+
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
     states: [city, type, plan, periodicity, day]
@@ -156,6 +158,22 @@ const MapPage: NextPage = () => {
       }, 2000)
     }
   }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setMapDimensions({
+        width: `${window.innerWidth}px`,
+        height: `${window.innerHeight}px`
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleFilters = verifyFilters()
@@ -274,7 +292,8 @@ const MapPage: NextPage = () => {
   }
 
   const options = {
-    gestureHandling: 'greedy' // Permite mover o mapa com um único dedo
+    gestureHandling: 'greedy', // Permite mover o mapa com um único dedo
+    zoomControl: false,
   };
 
   return (
@@ -372,14 +391,14 @@ const MapPage: NextPage = () => {
               <NoResultsModal close={() => setOpenNoResultsModal(false)} />
             </div>
           )}
-          <div className="h-[100vh] w-[100vw]">
+          <div style={{ width: mapDimensions.width, height: mapDimensions.height }}>
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: 'AIzaSyCInglOulrm7ViPoBXW5N6E_lNKNIgVPS4'
               }}
               defaultCenter={{
-                lat: latitude ?? 0,
-                lng: longitude ?? 0
+                lat: latitude ?? -23.550164466,
+                lng: longitude ??  -46.633664132
               }}
               defaultZoom={16}
               yesIWantToUseGoogleMapApiInternals
