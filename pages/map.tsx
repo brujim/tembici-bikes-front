@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { UnderstandModal } from '../src/components/UnderstandModal/UnderstandModal'
 import { NoResultsModal } from '../src/components/NoResultsModal/NoResultsModal'
 
+
 const MapPage: NextPage = () => {
   const router = useRouter()
   const [loadMap, setLoadMap] = useState(false)
