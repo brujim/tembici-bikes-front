@@ -27,7 +27,7 @@ export const Onboarding = () => {
   return (
     <>
       {step < 5 ? (
-        <div className="h-[100vh] w-[100vw] bg-pearl font-main relative">
+        <div className="bg-pearl font-main">
           <HeadingBar
             previousButton={() => setStep((param) => param - 1)}
             skipButton={() => console.log()}
