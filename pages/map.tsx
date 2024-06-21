@@ -394,7 +394,7 @@ const MapPage: NextPage = () => {
           <div style={{ width: mapDimensions.width, height: mapDimensions.height }}>
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: 'AIzaSyCInglOulrm7ViPoBXW5N6E_lNKNIgVPS4'
+                key: process.env.GOOGLE_API_KEY ?? '',
               }}
               defaultCenter={{
                 lat: latitude ?? -23.550164466,
