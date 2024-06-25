@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import Slide from 'react-reveal/Slide';
 
 type BaseModalProps = {
   children?: JSX.Element
@@ -38,36 +39,39 @@ export const BaseModal = ({
 
   return (
     isOpen && (
-      <div  className="bg-iron/70" style={{ width: bgDimensions.width, height: bgDimensions.height }}>
-        <div
-          className={`w-[100%] bg-pearl absolute px-6 py-6 overflow-y-scroll`}
-          style={{
-            minHeight: size + '%',
-            bottom: bottom + '%'
-          }}
-        >
-          <div className="flex flex-row justify-between items-center">
-            <Image
-              src="/images/filter/itau.png"
-              alt="primeiros passos"
-              width={75}
-              height={38}
-              className={useLogo ? '' : 'invisible'}
-            />
+        <div  className="bg-iron/70" style={{ width: bgDimensions.width, height: bgDimensions.height }}>
+          <Slide duration={400} bottom>
+            <div
+              className={`w-[100%] bg-pearl absolute px-6 py-6 overflow-y-scroll`}
+              style={{
+                minHeight: size + '%',
+                bottom: bottom + '%'
+              }}
+            >
+              <div className="flex flex-row justify-between items-center">
+                <Image
+                  src="/images/filter/itau.png"
+                  alt="primeiros passos"
+                  width={75}
+                  height={38}
+                  className={useLogo ? '' : 'invisible'}
+                />
 
-            <button className="flex items-center" onClick={close}>
-              <Image
-                src="/images/filter/x.png"
-                alt="fechar"
-                width={32}
-                height={32}
-              />
-            </button>
-          </div>
+                <button className="flex items-center" onClick={close}>
+                  <Image
+                    src="/images/filter/x.png"
+                    alt="fechar"
+                    width={32}
+                    height={32}
+                  />
+                </button>
+              </div>
 
-          {children}
+              {children}
+            </div>
+          </Slide>
         </div>
-      </div>
+      
     )
   )
 }

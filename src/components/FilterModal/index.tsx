@@ -4,7 +4,7 @@ import { ModalSection } from './components/ModalSection'
 import usePosition from '../../stores/usePosition'
 import Image from 'next/image'
 
-const Reveal = require('react-reveal/Reveal')
+import Slide from 'react-reveal/Slide';
 
 type FilterModalProps = {
   closeFilter: () => void
@@ -106,7 +106,7 @@ export const FilterModal = ({
   }, [statesWithoutCity, statesWithCity])
 
   return (
-    <Reveal>
+    <Slide duration={400} bottom>
       <div className="w-[100vw] h-[100vh] bg-stone/70">
         {warning && (
           <div className="bg-iron/70 w-[100vw] h-full absolute top-0 z-50">
@@ -208,6 +208,6 @@ export const FilterModal = ({
           </div>
         </div>
       </div>
-    </Reveal>
+    </Slide>
   )
 }

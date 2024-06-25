@@ -39,7 +39,6 @@ export const BikesStationModal = ({
   }
 
   return (
-    <Reveal>
       <BaseModal useLogo={true} size={85} bottom={0} close={close}>
         <div className="flex flex-col justify-center mt-6">
           <h3 className="font-main text-[20px] leading-6 font-semibold text-ironwhite	">
@@ -114,6 +113,5 @@ export const BikesStationModal = ({
           <PrimaryButton handle={close} text="Entendi" />
         </div>
       </BaseModal>
-    </Reveal>
   )
 }
