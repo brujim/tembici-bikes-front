@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Slide from 'react-reveal/Slide';
+import useScreenDimensions from '../../hooks/useScreenDimensions';
 
 type BaseModalProps = {
   children?: JSX.Element
@@ -18,28 +19,11 @@ export const BaseModal = ({
   close
 }: BaseModalProps) => {
   const [isOpen, setIsOpen] = useState(true)
-  const [bgDimensions, setBgDimensions] = useState({ width: '100%', height: '100vh' });
-
-
-  useEffect(() => {
-    const handleResize = () => {
-      setBgDimensions({
-        width: `${window.innerWidth}px`,
-        height: `${window.innerHeight}px`
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Chama o handleResize inicialmente para definir as dimensões corretas
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const screenDimensions = useScreenDimensions();
 
   return (
     isOpen && (
-        <div  className="bg-iron/70" style={{ width: bgDimensions.width, height: bgDimensions.height }}>
+        <div  className="bg-iron/70" style={{ width: screenDimensions.width, height: screenDimensions.height }}>
           <Slide duration={400} bottom>
             <div
               className={`w-[100%] bg-pearl absolute px-6 py-6 overflow-y-scroll`}

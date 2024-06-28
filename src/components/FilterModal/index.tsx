@@ -31,6 +31,23 @@ export const FilterModal = ({
   const [warning, setWarning] = useState(false)
   const { latitude, longitude, setPosition } = usePosition()
   const hasPosition = localStorage.getItem('getgeo') === 'true' ? true : false
+  const [filterDimensions, setFilterDimensions] = useState({ width: '100%', height: '100vh' });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setFilterDimensions({
+        width: `${window.innerWidth}px`,
+        height: `${window.innerHeight}px`
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!hasPosition) {
@@ -107,7 +124,9 @@ export const FilterModal = ({
 
   return (
     <Slide duration={400} bottom>
-      <div className="w-[100vw] h-[100vh] bg-stone/70">
+      <div className=" bg-stone/70"
+        style={{ width: filterDimensions.width, height: filterDimensions.height }}
+      >
         {warning && (
           <div className="bg-iron/70 w-[100vw] h-full absolute top-0 z-50">
             <div className="w-[260px] h-[180px] rounded-lg bg-pearl absolute bottom-[8rem] right-16 px-6 flex flex-col items-center justify-center">

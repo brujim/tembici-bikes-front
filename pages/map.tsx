@@ -15,6 +15,7 @@ import { SearchModal } from '../src/components/SearchModal'
 import Image from 'next/image'
 import { UnderstandModal } from '../src/components/UnderstandModal/UnderstandModal'
 import { NoResultsModal } from '../src/components/NoResultsModal/NoResultsModal'
+import useScreenDimensions from '../src/hooks/useScreenDimensions'
 
 
 const MapPage: NextPage = () => {
@@ -45,7 +46,7 @@ const MapPage: NextPage = () => {
   const [openNoResultsModal, setOpenNoResultsModal] = useState(false)
   const [iosAgent, setIosAgent] = useState(false) 
 
-  const [mapDimensions, setMapDimensions] = useState({ width: '100%', height: '100vh' });
+  const screenDimensions = useScreenDimensions();
 
   const filterObjectWithCity = {
     setters: [setCity, setType, setPlan, setPeriodicity, setDay],
@@ -158,22 +159,6 @@ const MapPage: NextPage = () => {
       }, 2000)
     }
   }, [])
-
-  useEffect(() => {
-    const handleResize = () => {
-      setMapDimensions({
-        width: `${window.innerWidth}px`,
-        height: `${window.innerHeight}px`
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     const handleFilters = verifyFilters()
@@ -391,7 +376,7 @@ const MapPage: NextPage = () => {
               <NoResultsModal close={() => setOpenNoResultsModal(false)} />
             </div>
           )}
-          <div style={{ width: mapDimensions.width, height: mapDimensions.height }}>
+          <div style={{ width: screenDimensions.width, height: screenDimensions.height }}>
             <GoogleMapReact
               bootstrapURLKeys={{
                 key: process.env.GOOGLE_API_KEY ?? '',
@@ -440,7 +425,8 @@ const MapPage: NextPage = () => {
             </div>
           )}
 
-          <div className="absolute z-20 bottom-0 w-[100vw]">
+          {!openSearchModal && (
+            <div className="absolute z-20 bottom-0 w-[100vw]">
             <BottomTabs
               tariff={tariff}
               setter={setTariff}
@@ -448,6 +434,8 @@ const MapPage: NextPage = () => {
               filtersUpdate={setFiltersSelected}
             />
           </div>
+          )}
+          
         </div>
       </main>
     </>

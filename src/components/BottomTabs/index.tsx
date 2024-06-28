@@ -33,7 +33,7 @@ export const BottomTabs = ({
       {iosAgent ? (
         <div className="bg-pearl w-[100%] h-[100%] flex justify-between">
           <div
-            className={`w-[50%] flex justify-center pt-4  ${tariff === 'none' && 'border-t-4 border-sapphire'}`}
+            className={`w-[50%] flex justify-center py-4 ${tariff === 'none' && 'border-t-4 border-sapphire'}`}
             onClick={() => {
               setter('none')
               load(true)
@@ -47,7 +47,7 @@ export const BottomTabs = ({
             </p>
           </div>
           <div
-            className={`w-[50%] flex justify-center pt-4  ${tariff === 'tariff' && 'border-t-4 border-sapphire'}`}
+            className={`w-[50%] flex justify-center py-4  ${tariff === 'tariff' && 'border-t-4 border-sapphire'}`}
             onClick={() => {
               setter('tariff')
               load(true)
