@@ -298,7 +298,10 @@ const MapPage: NextPage = () => {
         />
         <link rel="icon" type="image/x-icon" href="/fav.ico" />
       </Head>
-      <main>
+      <main
+         style={{maxWidth: screenDimensions.width}}
+
+      >
         <div className="relative">
           {openFilters && (
             <div className="absolute top-0 z-30 font-normal">
@@ -315,7 +318,8 @@ const MapPage: NextPage = () => {
             </div>
           )}
 
-          <div className="absolute top-10 z-20 w-[90%] left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
+          <div 
+          className="absolute top-10 z-20 left-5 md:flex md:justify-center md:flex-col md:items-center md:w-[100%]">
             <SearchInput
               openFilters={() => setOpenFilters(true)}
               searchParam={searchParam}
@@ -426,7 +430,9 @@ const MapPage: NextPage = () => {
           )}
 
           {!openSearchModal && (
-            <div className="absolute z-20 bottom-0 w-[100vw]">
+            <div 
+            style={{width: screenDimensions.width}}
+            className="absolute z-20 bottom-0 w-[100vw]">
             <BottomTabs
               tariff={tariff}
               setter={setTariff}
