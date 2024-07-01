@@ -124,7 +124,7 @@ export const FilterModal = ({
 
   return (
     <Slide duration={400} bottom>
-      <div className=" bg-stone/70"
+      <div className=" bg-stone/70 "
         style={{ width: filterDimensions.width, height: filterDimensions.height }}
       >
         {warning && (
@@ -151,7 +151,7 @@ export const FilterModal = ({
             </div>
           </div>
         )}
-        <div className="bg-pearl h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
+        <div className="bg-pearl pt-[24px] h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
           <div className="flex justify-between items-center pt-5 px-4">
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
