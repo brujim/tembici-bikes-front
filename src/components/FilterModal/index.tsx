@@ -151,12 +151,12 @@ export const FilterModal = ({
             </div>
           </div>
         )}
-        <div className="bg-pearl pt-[118px] h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
+        <div className="bg-pearl pt-[218px] h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
           <div className="flex justify-between items-center pt-8 px-4">
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
           </div>
-          <h3 className="font-main font-semibold text-[18px] px-4 my-4 py-2 md:text-center">
+          <h3 className="font-main font-semibold text-[18px] px-4 my-4 py-2 pt-8 md:text-center">
             Selecione abaixo os filtros para encontrar a estação ideal para
             você:
           </h3>
