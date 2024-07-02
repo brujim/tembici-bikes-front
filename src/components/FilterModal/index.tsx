@@ -151,7 +151,7 @@ export const FilterModal = ({
             </div>
           </div>
         )}
-        <div className="bg-pearl pt-[48px] h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
+        <div className="bg-pearl pt-[56px] h-[100vh] absolute bottom-0 w-[100vw] overflow-y-scroll">
           <div className="flex justify-between items-center pt-6 px-4">
             <img src="/images/filter/itau.png" />
             <img src="/images/filter/x.png" onClick={closeFilter} />
